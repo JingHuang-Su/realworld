@@ -1,0 +1,1 @@
+// shows all of article on the screen of left hand side
