@@ -1,4 +1,4 @@
-import { put } from "redux-saga/effects";
+import { put, call } from "redux-saga/effects";
 import axios from "axios";
 
 import * as actionsFunction from "../action";
@@ -40,4 +40,23 @@ export function* registerSaga(action) {
   yield localStorage.setItem("token", res.data.user.token);
   yield put(actionsFunction.authSuccess(res.data));
   yield localStorage.token ? setAuthToken(localStorage.token) : put(actionsFunction.logout)
+}
+
+
+export function* loadUserSaga() {
+  try {
+    if(localStorage.token){
+      setAuthToken(localStorage.token)
+    }
+    const res = yield axios.get(`${defaultURL}/api/users`);
+    yield put(actionsFunction.authSuccess(res.data));
+  } catch (error) {
+    yield put(actionsFunction.authError_init())
+  }
+  
+}
+
+export function* authErrorSaga() {
+  yield localStorage.removeItem("token")
+  yield put(actionsFunction.authError)
 }

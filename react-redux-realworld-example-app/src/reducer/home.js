@@ -8,10 +8,11 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case actionType.GET_TAG:
+    case actionType.GET_TAG_SUCCESS:
+      console.log(payload)
       return {
         ...state,
-        tag: payload
+        tag: payload.tags
       };
 
     default:

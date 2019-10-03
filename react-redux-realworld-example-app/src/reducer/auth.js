@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
       return {};
 
     case actionType.LOGOUT: 
+    case actionType.AUTH_ERROR:
       return {
         ...state,
         token: null,

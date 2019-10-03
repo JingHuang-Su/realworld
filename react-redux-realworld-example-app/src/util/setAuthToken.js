@@ -20,7 +20,7 @@ import axios from 'axios';
 
 const setAuthToken = token => {
   if (token) {
-    axios.defaults.headers.common['authorization'] = `token ${token}`;
+    axios.defaults.headers.common['authorization'] = `Token ${token}`;
   } else {
     delete axios.defaults.headers.common['authorization'];
   }

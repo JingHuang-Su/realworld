@@ -1,26 +1,30 @@
 // https://github.com/gothinkster/realworld/tree/master/api
 
-import React from "react";
+import React, {useEffect} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./auth/Login";
 import store from '../store';
-import {Provider} from 'react-redux';
+import {Provider, connect} from 'react-redux';
 import setAuthToken from "../util/setAuthToken";
 import Signup from "./auth/Signup";
-
-
+import Home from './layout/Home'
+import {loadUser} from '../action'
+import Header from './layout/Header'
 if(localStorage.token){
   setAuthToken(localStorage.token)
 }
 const App  = () =>  {
-    
+    useEffect(() => {
+      store.dispatch(loadUser())
+    }, [])
     return (
       <Provider store={store}>
         <Router>
+         <Header />
           <Switch>
-            {/* <Route exact path="/" component={App} /> */}
+            <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/register" component={Signup} />
           </Switch>
         </Router>
       </Provider>
@@ -28,11 +32,9 @@ const App  = () =>  {
   
 }
 
-export default App;
+export default (App);
 
-// <Header
-//                 appName={this.props.appName}
-//                 currentUser={this.props.currentUser} />
+
 //                 <Route exact path="/" component={Home}/>
 // <Route path="/register" component={Register} />
 //                 <Route path="/editor/:slug" component={Editor} />
