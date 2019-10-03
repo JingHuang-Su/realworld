@@ -214,56 +214,36 @@ export const unFavArticleSuccess = (slug, data) => {
 // PUT article (update)
 // axios.post(https://conduit.productionready.io/api/articles/${articles.slug})
 
-export const updateArticle = (slug, formData) => async dispatch => {
-  const res = await axios.put(
-    `${defaultURL}/api/articles/${slug}`,
+export const updateArticle = (slug, formData) => {
+  return {
+    type: actionType.UPDATE_ARTICLE,
     formData,
-    setHeaderConfig
-  );
-  dispatch({
-    type: actionType.EDIT_ARTICLE,
-    payload: res.data
-  });
+    slug
+  };
+};
+
+export const updateArticleSuccess = data => {
+  return {
+    type: actionType.UPDATE_ARTICLE_SUCCESS,
+    payload: data
+  };
 };
 
 // CREATE article
 // axios.post(https://conduit.productionready.io/api/articles)
 
-// res.data
-// {
-//     "article": {
-//         "title": "How to train your dragon",
-//         "slug": "how-to-train-your-dragon-z3tac9",
-//         "body": "You have to believe",
-//         "createdAt": "2019-10-02T09:20:15.740Z",
-//         "updatedAt": "2019-10-02T09:20:15.740Z",
-//         "tagList": [
-//             "reactjs",
-//             "angularjs",
-//             "dragons"
-//         ],
-//         "description": "Ever wonder how?",
-//         "author": {
-//             "username": "jinghuang",
-//             "bio": null,
-//             "image": "",
-//             "following": false
-//         },
-//         "favorited": false,
-//         "favoritesCount": 0
-//     }
-// }
-
-export const createArticle = formData => async dispatch => {
-  const res = await axios.post(
-    `${defaultURL}/api/articles`,
-    formData,
-    setHeaderConfig
-  );
-  dispatch({
+export const createArticle = formData => {
+  return {
     type: actionType.CREATE_ARTICLE,
-    payload: res.data
-  });
+    formData: formData
+  };
+};
+
+export const createArticleSuccess = data => {
+  return {
+    type: actionType.CREATE_ARTICLE_SUCCESS,
+    payload: data
+  };
 };
 /////////////
 ///Comment///
@@ -311,33 +291,32 @@ export const getComment = slug => async dispatch => {
 ///Profile///
 /////////////
 
-export const updateUser = (formData) => {
+export const updateUser = formData => {
   return {
     type: actionType.UPDATE_USER,
-    formData:formData
-  }
-}
+    formData: formData
+  };
+};
 
-export const updateUserSuccess = (data) => {
+export const updateUserSuccess = data => {
   return {
     type: actionType.UPDATE_USER_SUCCESS,
-    payload:data
-  }
-}
+    payload: data
+  };
+};
 
 export const getUser = () => {
   return {
-    type:actionType.GET_USER
-  }
-}
+    type: actionType.GET_USER
+  };
+};
 
-export const getUserSuccess = (data) =>{
+export const getUserSuccess = data => {
   return {
     type: actionType.GET_USER_SUCCESS,
-    payload:data
-  }
-}
-
+    payload: data
+  };
+};
 
 // POST followed user
 // axios.post(https://conduit.productionready.io/profiles/${username}/follow)

@@ -45,13 +45,13 @@ const LoggedInView = ({isAuth, user})=> {
         </li>
 
         <li className="nav-item">
-          <Link to="/editor" className="nav-link">
+          <Link to="/newArticle" className="nav-link">
             <i className="ion-compose"></i>&nbsp;New Post
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link to="/settings" className="nav-link">
+          <Link to="/edit" className="nav-link">
             <i className="ion-gear-a"></i>&nbsp;Settings
           </Link>
         </li>
@@ -61,7 +61,7 @@ const LoggedInView = ({isAuth, user})=> {
             to={`/@${user.username}`}
             className="nav-link">
             <img src={user.image} className="user-pic" alt={user.username} />
-            {user.username}
+            {user.image ?  user.username:null}
           </Link>
         </li>
 

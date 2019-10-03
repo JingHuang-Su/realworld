@@ -2,6 +2,7 @@ import * as actionType from "../action/type";
 
 const initialState = {
   articles: [],
+  article:null,
   comments: [],
   length: null,
   tag: null
@@ -9,7 +10,15 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { payload, type } = action;
+
   switch (type) {
+    case actionType.CREATE_ARTICLE_SUCCESS:
+    case actionType.UPDATE_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        article:payload
+      }
+
     case actionType.GET_ARTICLE_SUCCESS:
       return {
         ...state,

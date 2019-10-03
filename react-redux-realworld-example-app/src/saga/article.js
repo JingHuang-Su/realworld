@@ -2,6 +2,7 @@ import { put } from "redux-saga/effects";
 import axios from "axios";
 
 import * as actionsFunction from "../action";
+import {setHeaderConfig} from '../util//setHeaderConfig'
 
 const defaultURL = "https://conduit.productionready.io";
 
@@ -49,4 +50,34 @@ export function* unfavArticleSaga(action) {
     `${defaultURL}/api/articles/${action.slug}/favorite`
   );
   yield put(actionsFunction.unFavArticleSuccess(action.slug, res.data));
+}
+
+
+
+export function* createArticleSaga(action) {
+  const articleData = JSON.stringify({
+    article: 
+      action.formData
+    
+  });
+  
+
+  const res = yield axios.post(
+    `${defaultURL}/api/articles`,
+    articleData,
+    setHeaderConfig
+  );
+
+  console.log(res.data)
+   yield put(actionsFunction.createArticleSuccess(res.data))
+}
+
+export function* updateArticleSaga(action) {
+
+  const res = yield axios.put(
+    `${defaultURL}/api/articles/${action.slug}`,
+    action.formData,
+    setHeaderConfig
+  );
+   yield put(actionsFunction.updateArticleSuccess( res.data))
 }

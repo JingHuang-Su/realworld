@@ -11,8 +11,8 @@ export function* updateUserSaga(action) {
     const updateData = JSON.stringify({
       user: action.formData
     });
-    const res = yield axios.post(
-        `${defaultURL}/api/users`,
+    const res = yield axios.put(
+        `${defaultURL}/api/user`,
         updateData,
         setHeaderConfig
       );
@@ -25,7 +25,7 @@ export function* getUserSaga() {
     setAuthToken(localStorage.token)
   }
     const res = yield axios.get(
-        `${defaultURL}/api/users`
+        `${defaultURL}/api/user`
       );
 
     yield put(actionsFunction.getUserSuccess(res.data))

@@ -9,11 +9,10 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
     username: "",
     bio: "",
     email: "",
-    password: ""
+    // password: ""
   });
-  console.log(profile)
 
-  const { image, username, bio, email, password } = formData;
+  const { image, username, bio, email } = formData;
 
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,22 +21,21 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
   const onSubmit = e => {
     e.preventDefault();
     updateUser(formData)
-    // TODO: edit function(updateProfile)
+
   };
 
   useEffect(() => {
-    //TODO: get current profile
 
     getUser()
 
     setFormData({
-      image: loading||!profile.image ? "" : profile.image,
-      username: loading||!profile.username ? "" : profile.username,
-      bio: loading||!profile.bio ? "" : profile.bio,
-      email: loading||!profile.email ? "" : profile.email,
-      password: loading||!profile.password ? "" : profile.password
+      image: loading||!profile.user.image ? "" : profile.user.image,
+      username: loading||!profile.user.username ? "" : profile.user.username,
+      bio: loading||!profile.user.bio ? "" : profile.user.bio,
+      email: loading||!profile.user.email ? "" : profile.user.email,
+      // password: loading||!profile.user.password ? "" : profile.user.password
     });
-  }, [getUser]);
+  }, [loading, getUser]);
 
   return (
     <div className="settings-page">
@@ -92,7 +90,7 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
                   />
                 </fieldset>
 
-                <fieldset className="form-group">
+                {/* <fieldset className="form-group">
                   <input
                     className="form-control form-control-lg"
                     type="password"
@@ -101,7 +99,7 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
                     value={password}
                     onChange={e => onChange(e)}
                   />
-                </fieldset>
+                </fieldset> */}
 
                 <button
                   className="btn btn-lg btn-primary pull-xs-right"
@@ -115,6 +113,7 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
 
             <button
               className="btn btn-outline-danger"
+              name="submit"
             //   onClick={this.props.onClickLogout}
             >
               Or click here to logout.

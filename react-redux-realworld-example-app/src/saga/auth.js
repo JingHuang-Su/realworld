@@ -48,7 +48,7 @@ export function* loadUserSaga() {
     if(localStorage.token){
       setAuthToken(localStorage.token)
     }
-    const res = yield axios.get(`${defaultURL}/api/users`);
+    const res = yield axios.get(`${defaultURL}/api/user`);
     yield put(actionsFunction.authSuccess(res.data));
   } catch (error) {
     yield put(actionsFunction.authError_init())
