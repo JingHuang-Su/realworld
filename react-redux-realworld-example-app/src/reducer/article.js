@@ -31,14 +31,17 @@ export default (state = initialState, action) => {
       };
     case actionType.FAV_ARTICLE_SUCCESS:
     case actionType.UNFAV_ARTICLE_SUCCESS:
+      console.log(payload)
+      console.log(payload.slug)
+      console.log(payload.data.article.favorited)
       return {
         ...state,
         articles: state.articles.map(a =>
           a.slug === payload.slug
             ? {
                 ...a,
-                favoriated: payload.data.favoriated,
-                favoriatesCount: payload.data.favoriatesCount
+                favoriated: payload.data.article.favorited,
+                favoriatesCount: payload.data.article.favoritesCount
               }
             : a
         )

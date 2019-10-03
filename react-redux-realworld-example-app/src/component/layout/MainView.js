@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
-import { getArticleByTag, getArticle, getArticleByFeed } from "../../action";
+import { getArticleByTag, getArticle, getArticleByFeed} from "../../action";
 import MainViewCard from './MainviewCard'
 
 
@@ -100,5 +100,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getArticleByTag, getArticle, getArticleByFeed }
+  { getArticleByTag, getArticle, getArticleByFeed}
 )(MainView);

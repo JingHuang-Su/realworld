@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {favArticle, unFavArticle,getArticle} from '../../action'
+import {favArticle, unFavArticle} from '../../action'
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
@@ -12,10 +12,9 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
   const favoriteButtonClass = article.favorited ?
     FAVORITED_CLASS :
     NOT_FAVORITED_CLASS;
+
   
-  
-  const onClick = e => {
-    e.preventDefault();
+  const onClick = () => {
     if (article.favorited) {
       unFavArticle(article.slug);
     } else {
@@ -66,8 +65,6 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
   );
 }
 
-const mapStateToProps = state => ({
-  articles: state.articles
-})
 
-export default connect(mapStateToProps, {unFavArticle, favArticle, getArticle})(MainviewCardPreview);
+
+export default connect(null, {unFavArticle, favArticle})(MainviewCardPreview);

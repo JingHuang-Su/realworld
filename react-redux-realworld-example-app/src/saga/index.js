@@ -1,5 +1,6 @@
 import {loginSaga, registerSaga, loadUserSaga, authErrorSaga} from './auth';
 import { getTagsSaga } from './home';
+import { updateUserSaga, getUserSaga } from './profile';
 
 import * as actionType from '../action/type';
 import { takeEvery, all, take } from 'redux-saga/effects';
@@ -29,5 +30,14 @@ export function* watchArticle() {
         takeEvery(actionType.GET_ARTICLE_TAG, getArticleByTagOrSlugSaga),
         takeEvery(actionType.FAV_ARTICLE, favArticleSaga),
         takeEvery(actionType.UNFAV_ARTICLE, unfavArticleSaga)
+    ])
+}
+
+
+
+export function* watchProfile() {
+    yield all([
+        takeEvery(actionType.UPDATE_USER, updateUserSaga),
+        takeEvery(actionType.GET_USER, getUserSaga)
     ])
 }

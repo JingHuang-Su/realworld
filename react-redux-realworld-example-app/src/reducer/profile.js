@@ -2,16 +2,20 @@ import * as actionType from '../action/type';
 
 const initialState = {
   profile: null, 
-  following:null
+  following:null,
+  loading: true
 };
 
 export default (state = initialState, action ) => {
     const {type, payload} = action
     switch (type) {
-        case actionType.GET_USER:
+        case actionType.GET_USER_SUCCESS:
+        case actionType.UPDATE_USER_SUCCESS:
+            console.log(payload)
             return {
                 ...state, 
-                profile: payload.profile
+                profile: payload,
+                loading:false
             }
         case actionType.PROFILE_PAGE_UNLOADED:
             return {}

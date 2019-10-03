@@ -306,9 +306,38 @@ export const getComment = slug => async dispatch => {
     payload: res.data
   });
 };
+
 /////////////
 ///Profile///
 /////////////
+
+export const updateUser = (formData) => {
+  return {
+    type: actionType.UPDATE_USER,
+    formData:formData
+  }
+}
+
+export const updateUserSuccess = (data) => {
+  return {
+    type: actionType.UPDATE_USER_SUCCESS,
+    payload:data
+  }
+}
+
+export const getUser = () => {
+  return {
+    type:actionType.GET_USER
+  }
+}
+
+export const getUserSuccess = (data) =>{
+  return {
+    type: actionType.GET_USER_SUCCESS,
+    payload:data
+  }
+}
+
 
 // POST followed user
 // axios.post(https://conduit.productionready.io/profiles/${username}/follow)
