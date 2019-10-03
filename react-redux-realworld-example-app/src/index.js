@@ -1,19 +1,6 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
-import { Provider } from 'react-redux';
-import store from './store';
+import ReactDOM from "react-dom";
+import React from "react";
 
-import { Route, Switch } from 'react-router-dom';
+import App from "./component/App";
 
-import App from './components/App';
-
-ReactDOM.render((
-  <Provider store={store}>
-    <Router>
-      <Switch>
-        <Route path="/" component={App} />
-      </Switch>
-    </Router>
-  </Provider>
-
-), document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));

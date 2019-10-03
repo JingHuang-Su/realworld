@@ -2,16 +2,20 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk'
 import rootReducer from './reducer';
-import { localStorageMiddleware } from './util/setAuthToken';
 
-// const initialState = {};
+import createSagaMiddleware from 'redux-saga';
+import {watchAuth} from "./saga"
 
-const middleware = [thunk, localStorageMiddleware];
+
+const sagaMiddleware = createSagaMiddleware()
+
+const middleware = [thunk, sagaMiddleware];
 
 const store = createStore(
   rootReducer,
-//   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
+
+sagaMiddleware.run(watchAuth)
 
 export default store;

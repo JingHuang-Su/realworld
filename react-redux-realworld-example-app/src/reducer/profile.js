@@ -1,25 +1,27 @@
-import * as GET from '../action/type';
+import * as actionType from '../action/type';
 
 const initialState = {
-  profile: null
+  profile: null, 
+  following:null
 };
 
 export default (state = initialState, action ) => {
     const {type, payload} = action
     switch (type) {
-        case GET.GET_USER:
+        case actionType.GET_USER:
             return {
                 ...state, 
-                profile: payload
+                profile: payload.profile
             }
-        case GET.PROFILE_PAGE_UNLOADED:
+        case actionType.PROFILE_PAGE_UNLOADED:
             return {}
-        case GET.UNFOL_USER:
-        case GET.FOL_USER:
+        case actionType.UNFOL_USER:
+        case actionType.FOL_USER:
             return {
                 ...state, 
-                profile:payload
+                following:payload.profile.following
             }
+        
         default:
             return state;
     }

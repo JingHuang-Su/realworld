@@ -1,4 +1,4 @@
-import * as GET from "../action/type";
+import * as actionType from "../action/type";
 
 const initialState = {
   tag: []
@@ -8,10 +8,10 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case GET.GET_TAG:
+    case actionType.GET_TAG:
       return {
         ...state,
-        tag: payload.tags
+        tag: payload
       };
 
     default:

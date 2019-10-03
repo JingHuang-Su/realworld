@@ -1,87 +1,90 @@
-// User Login form 
+// User Login form
 
-import {Link} from 'react-router-dom';
-import React from 'react';
-import {connect} from 'react-redux';
-import {login} from '../../action';
+import { Link, Redirect } from "react-router-dom";
+import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
+import { login } from "../../action";
 
-class Login extends React.Component{
-    state = {email:"", password:""};
-    
-    
-    
-    onChange = e => {
-        this.setState({...this.state, [e.target.name]:[e.target.value]});
-    }
+const Login = ({ login, isAuth}) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
 
-    onSubmit = e => {
-        console.log(this.state.email)
-        e.preventDefault();
-        this.props.login(this.state.email, this.state.password)
-    }
+  const { email, password } = formData;
 
-    
+  const onChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    render(){
-        if(this.props.isAuth){
-            return <Redirect to = "/"/>
-        }
-        return (
-            <div className="auth-page">
-                <div className="container page">
-                <div className="row">
-                    <div className="col-md-6 offset-md-3 col-xs-12">
-                    <h1 className="text-xs-center">Sign In</h1>
-                    <p className="text-xs-center">
-                        <Link to="/register">
-                            Need an account?
-                        </Link>
-                    </p>
+  const onSubmit = e => {
+    e.preventDefault();
+    login(email, password);
+  };
 
-                    {/* <ListErrors errors={this.props.errors} /> */}
+  if(isAuth){
+    return <Redirect to="/" />
+  }
 
-                    <form onSubmit={this.submitForm(email, password)}>
-                        <fieldset>
+  return (
+    <Fragment>
+      <div className="auth-page">
+        <div className="container page">
+          <div className="row">
+            <div className="col-md-6 offset-md-3 col-xs-12">
+              <h1 className="text-xs-center">Sign In</h1>
+              <p className="text-xs-center">
+                <Link to="/register">Need an account?</Link>
+              </p>
 
-                        <fieldset className="form-group">
-                            <input
-                            className="form-control form-control-lg"
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={this.onChange} />
-                        </fieldset>
+              {/* <ListErrors errors={this.props.errors} /> */}
 
-                        <fieldset className="form-group">
-                            <input
-                            className="form-control form-control-lg"
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={this.onChange} />
-                        </fieldset>
+              <form onSubmit={e => onSubmit(e)}>
+                <fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={e => onChange(e)}
+                    />
+                  </fieldset>
 
-                        <button
-                            className="btn btn-lg btn-primary pull-xs-right"
-                            type="submit"
-                            // disabled={this.props.inProgress}
-                            >
-                            Sign in
-                        </button>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={e => onChange(e)}
+                    />
+                  </fieldset>
 
-                        </fieldset>
-                    </form>
-                    </div>
-
-                </div>
-                </div>  
+                  <button
+                    className="btn btn-lg btn-primary pull-xs-right"
+                    type="submit"
+                    // disabled={this.props.inProgress}
+                  >
+                    Sign in
+                  </button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-        )
-    }
-}
-
+    </Fragment>
+  );
+};
 
 const mapStateToProps = state => ({
-    isAuth:state.auth.isAuth
-})
-export default connect(mapStateToProps, {login})(Login)
+  isAuth: state.auth.isAuth
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);

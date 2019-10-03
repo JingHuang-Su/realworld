@@ -1,6 +1,7 @@
 import axios from 'axios'
 import setHeaderConfig from '../util/setHeaderConfig';
-import * as GET from './type';
+import setAuthToken from '../util/setAuthToken'
+import * as actionType from './type';
 
 
 const defaultURL = "https://conduit.productionready.io"
@@ -13,37 +14,45 @@ const defaultURL = "https://conduit.productionready.io"
 
 // Get token
 
-// Get User using token
 
 // Post User Info to API (login) 
 // axios.post(https://conduit.productionready.io/api/users/login)
 
 //TODO: side effect appear, 10/3 using redux-saga to fix it 
-export const login = (email, password) => async dispatch =>{
-    const body = JSON.stringify({user:{email, password}})
-    console.log(body)
-    const res = await axios.post(`${defaultURL}/api/users/login`, body, setHeaderConfig);
-
-    dispatch({
-        type: GET.LOGIN,
-        payload: res.data
-    })
+export const login = (email, password) =>{
+    return {
+        type: actionType.LOGIN,
+        email:email,
+        password:password
+    }
 }
+
 
 // Post User Info to API (signup)
 // axios.post(https://conduit.productionready.io/api/users/signup)
 
 //TODO: side effect still appear, 10/3 using redux-saga to fix it
 
-export const signup = (username, email, password) => async dispatch => {
-    const body = JSON.stringify({user:{username, email, password}});
-    console.log(body);
-    const res = await axios.post(`${defaultURL}/api/users/login`, body, setHeaderConfig);
-    dispatch({
-        type: GET.REGISTER,
-        payload: res.data
-    })
+export const signup = (username, email, password)  => {
+    return {
+        type: actionType.REGISTER,
+        username:username, 
+        email:email,
+        password:password
+    }
+
 }
+
+//TODO: LOGOUT
+
+export const authSuccess = (data) => {
+    return {
+        type:actionType.AUTH_SUCCESS,
+        payload:data
+    }
+}
+
+
 
 // GET Tag from API
 // axios.get(https://conduit.productionready.io/api/tags) 
@@ -53,10 +62,13 @@ export const signup = (username, email, password) => async dispatch => {
 export const getTags = () => async dispatch => {
     const res = await axios.get(`${defaultURL}/api/tags`);
     dispatch({
-        type:GET.GET_TAG,
+        type:actionType.GET_TAG,
         payload:res.data
     })
 }
+
+//TODO: ADD TAG 
+//TODO: REMOVE TAG
 
 
 ////////////
@@ -69,7 +81,7 @@ export const getArticle = () => async dispatch => {
     const res = await axios.get(`${defaultURL}/api/articles`)
 
     dispatch({
-        type: GET.GET_ARTICLE,
+        type: actionType.GET_ARTICLE,
         payload:res.data
     })
 }
@@ -81,7 +93,7 @@ export const getArticleByUserName = (username) => async dispatch => {
     const res = await axios.get(`${defaultURL}/api/articles/${username}`)
 
     dispatch({
-        type:GET.GET_ARTICLE_USERNAME,
+        type:actionType.GET_ARTICLE_USERNAME,
         payload:res.data
     })
 }
@@ -92,7 +104,7 @@ export const getArticleByUserName = (username) => async dispatch => {
 export const getArticleByTag = (tag) => async dispatch => {
     const res = await axios.get(`${defaultURL}/api/articles/${tag}`)
     dispatch({
-        type:GET.GET_ARTICLE_TAG,
+        type:actionType.GET_ARTICLE_TAG,
         payload:{tag, data:res.data}
     })
 }
@@ -103,7 +115,7 @@ export const delArticleBySlug = slug => async dispatch => {
     const res = await axios.delete(`${defaultURL}/api/articles/${slug}`)
 
     dispatch({
-        type:GET.DEL_ARTICLE_BY_SLUG,
+        type:actionType.DEL_ARTICLE_BY_SLUG,
         payload:slug
     })
 }
@@ -138,7 +150,7 @@ export const favArticle = (slug) => async dispatch => {
     const res = await axios.post(`${defaultURL}/api/articles/${slug}/favorite`);
 
     dispatch({
-        type:GET.FAV_ARTICLE,
+        type:actionType.FAV_ARTICLE,
         payload:{slug, data:res.data}
     })
 }
@@ -153,7 +165,7 @@ export const getArticleBySlug = (slug) => async dispatch => {
     const res = await axios.get(`${defaultURL}/api/articles/${slug}`);
 
     dispatch({
-        type:GET.GET_ARTICLE_BY_SLUG,
+        type:actionType.GET_ARTICLE_BY_SLUG,
         payload:res.data
     })
 }
@@ -164,7 +176,7 @@ export const unFavArticle = (slug) => async dispatch => {
     const res = await axios.delete(`${defaultURL}/api/articles/${slug}/favorite`);
 
     dispatch({
-        type:GET.UNFAV_ARTICLE,
+        type:actionType.UNFAV_ARTICLE,
         payload:{slug, data: res.data}
     })
 }
@@ -174,7 +186,7 @@ export const unFavArticle = (slug) => async dispatch => {
 export const updateArticle = (slug, formData) => async dispatch =>{
     const res = await axios.put(`${defaultURL}/api/articles/${slug}`, formData, setHeaderConfig);
     dispatch({
-        type: GET.EDIT_ARTICLE,
+        type: actionType.EDIT_ARTICLE,
         payload:res.data
     })
 }
@@ -210,7 +222,7 @@ export const updateArticle = (slug, formData) => async dispatch =>{
 export const createArticle = formData => async dispatch => {
     const res = await axios.post(`${defaultURL}/api/articles`, formData, setHeaderConfig);
     dispatch({
-        type:GET.CREATE_ARTICLE,
+        type:actionType.CREATE_ARTICLE,
         payload:res.data
     })
 }
@@ -221,10 +233,12 @@ export const createArticle = formData => async dispatch => {
 
 //Create Comment
 //axios.post(https://conduit.productionready.io/api/articles/${slug}/comments/)
+
+//return single comment that is your post
 export const createComment = (slug, formData) => async dispatch => {
     const res = await axios.post(`${defaultURL}/api/articles/${slug}/comments`,formData,setHeaderConfig);
     dispatch({
-        type:GET.CREATE_COMMENT,
+        type:actionType.CREATE_COMMENT,
         payload:res.data
     })
 }
@@ -234,8 +248,8 @@ export const createComment = (slug, formData) => async dispatch => {
 export const delComment = (slug, commentId) => async dispatch => {
     await axios.delete(`${defaultURL}/api/articles/${slug}/comments/${commentId}`)
     dispatch({
-        type:GET.DEL_COMMENT,
-        payload:{slug, commentId}
+        type:actionType.DEL_COMMENT,
+        payload:commentId
     })
 }
 
@@ -244,7 +258,7 @@ export const delComment = (slug, commentId) => async dispatch => {
 export const getComment = (slug) => async dispatch => {
     const res = await axios.get(`${defaultURL}/api/articles/${slug}/comments`)
     dispatch({
-        type:GET.GET_COMMENT_FROM_ARTICLE,
+        type:actionType.GET_COMMENTS,
         payload:res.data
     })
 }
@@ -258,7 +272,7 @@ export const getComment = (slug) => async dispatch => {
 export const followUser = (username) => async dispatch => {
     const res = await axios.post(`${defaultURL}/api/profiles/${username}/follow`)
     dispatch({
-        type:GET.FOL_USER,
+        type:actionType.FOL_USER,
         payload:res.data
     })
 }
@@ -276,7 +290,7 @@ export const followUser = (username) => async dispatch => {
 export const getFollowUser = (username) => async dispatch => {
     const res = await axios.get(`${defaultURL}/api/profiles/${username}`)
     dispatch({
-        type:GET.GET_USER,
+        type:actionType.GET_USER,
         payload:res.data
     })
 }
@@ -288,7 +302,7 @@ export const getFollowUser = (username) => async dispatch => {
 export const unfollowUser = (username) => async dispatch => {
     const res = await axios.delete(`${defaultURL}/api/profiles/${username}/follow`)
     dispatch({
-        type:GET.UNFOL_USER,
+        type:actionType.UNFOL_USER,
         payload:res.data
     })
 }
