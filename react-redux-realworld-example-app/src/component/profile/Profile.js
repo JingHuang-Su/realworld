@@ -13,8 +13,7 @@ const Profile = ({
 }) => {
 
   
-  useEffect(
-     () => {
+  useEffect(() => {
     getUserById(match.params.id);
   }, [getUserById, match.params.id]);
   console.log(!profile.loading && profile.profile.profile)
@@ -55,7 +54,7 @@ const Profile = ({
   //     classes += " btn-outline-secondary";
   //   }
 
-  return (profile.loading || auth.loading) ? (
+  return (profile.loading || auth.loading || !profile.profile.profile) ? (
     <div>loading</div>
   ) : (
     <div className="profile-page">
@@ -68,7 +67,7 @@ const Profile = ({
                 className="user-img"
                 alt={profile.profile.profile.username}
               />
-              <h4>{profile.profile.profile.username}</h4>
+              <h4>{console.log(profile.profile.profile.username)}</h4>
               <p>{profile.profile.profile.bio}</p>
               {auth.user.username === id ? (
                 <Link

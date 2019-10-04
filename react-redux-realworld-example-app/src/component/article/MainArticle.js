@@ -20,13 +20,11 @@ const MainArticle = ({
   // console.log(article.loading)
 
   useEffect(() => {
-    async function fetchData() {
-      await getArticleBySlug(slug);
-    }
-    fetchData();
+     getArticleBySlug(slug);
+    
   }, [getArticleBySlug, slug]);
-  console.log(article);
-  // const canModify = !article.loading && article.articleauthor.username === auth.user.username
+
+
   return article.loading ? (
     <div>loading</div>
   ) : (

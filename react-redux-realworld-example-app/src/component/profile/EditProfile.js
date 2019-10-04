@@ -1,9 +1,9 @@
 // As File name
 import React, {useState, useEffect} from "react";
 import {connect} from 'react-redux';
-import {updateUser, getUser} from '../../action'
+import {updateUser, getUser, loadUser} from '../../action'
 
-const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
+const EditProfile = ({updateUser, getUser, auth}) => {
   const [formData, setFormData] = useState({
     image: "",
     username: "",
@@ -12,7 +12,7 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
     // password: ""
   });
 
-  console.log(profile)
+  console.log(auth)
 
   const { image, username, bio, email } = formData;
 
@@ -28,18 +28,18 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
 
   useEffect(() => {
 
-    getUser()
+    loadUser()
 
     setFormData({
-      image: loading||!profile.user.image ? "" : profile.user.image,
-      username: loading||!profile.user.username ? "" : profile.user.username,
-      bio: loading||!profile.user.bio ? "" : profile.user.bio,
-      email: loading||!profile.user.email ? "" : profile.user.email,
+      image: auth.loading ||!auth.user.image ? "" : auth.user.image,
+      username: auth.loading||!auth.user.username ? "" : auth.user.username,
+      bio: auth.loading||!auth.user.bio ? "" : auth.user.bio,
+      email: auth.loading||!auth.user.email ? "" : auth.user.email,
       // password: loading||!profile.user.password ? "" : profile.user.password
     });
-  }, [loading, getUser]);
+  }, [auth.loading, getUser]);
 
-  return loading ? (<div>loading</div>):(
+  return auth.loading ? (<div>loading</div>):(
     <div className="settings-page">
       <div className="container page">
         <div className="row">
@@ -129,7 +129,7 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
 
 
 const mapStateToProps = state => ({
-    profile:state.profile
+    auth:state.auth
 })
 
 export default connect(mapStateToProps, {updateUser, getUser})(EditProfile);

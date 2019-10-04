@@ -71,9 +71,12 @@ export function* createArticleSaga(action) {
 }
 
 export function* updateArticleSaga(action) {
+  const articleData = JSON.stringify({
+    article: action.formData
+  });
   const res = yield axios.put(
     `${defaultURL}/api/articles/${action.slug}`,
-    action.formData,
+    articleData,
     setHeaderConfig
   );
   yield put(actionsFunction.updateArticleSuccess(res.data));

@@ -12,6 +12,7 @@ const EditArticle = ({ updateArticle, match, article, getArticleBySlug }) => {
     tagInput: ""
   });
 
+  // console.log(article.article)
   const { title, description, body, tagInput } = formData;
 
   const onChange = e => {
@@ -20,23 +21,23 @@ const EditArticle = ({ updateArticle, match, article, getArticleBySlug }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    updateArticle(formData);
+    updateArticle(match.params.id, formData);
   };
   
   useEffect(() => {
     getArticleBySlug(match.params.id)
     
     setFormData({
-      image: article.loading||!article.article.article.title ? "" : article.article.article.title,
-      username: article.loading||!article.article.article.description ? "" : article.article.article.description,
-      bio: article.loading||!article.article.article.body ? "" : article.article.article.body,
+      title: article.loading||!article.article.article.title ? "" : article.article.article.title,
+      description:  article.loading||!article.article.article.description ? "" : article.article.article.description,
+      body:  article.loading||!article.article.article.body ? "" : article.article.article.body,
       // tagInput: loading||!article.tagInput ? "" : article.tagInput,
     })
     
 
-  }, [article.loading, getArticleBySlug])
+  }, [  article.loading, getArticleBySlug])
 
-  return (
+  return article.loading? (<div>loading</div>):(
     <div className="editor-page">
       <div className="container page">
         <div className="row">
