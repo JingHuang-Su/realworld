@@ -97,7 +97,7 @@ export function* createCommentSaga(action){
   const commentData = JSON.stringify({
     comment: action.formData
   });
-  const res = await axios.post(
+  const res = yield axios.post(
     `${defaultURL}/api/articles/${action.slug}/comments`,
     commentData,
     setHeaderConfig

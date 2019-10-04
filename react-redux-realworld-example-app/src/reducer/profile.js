@@ -19,8 +19,9 @@ export default (state = initialState, action ) => {
             }
         case actionType.PROFILE_PAGE_UNLOADED:
             return {}
-        case actionType.UNFOL_USER:
-        case actionType.FOL_USER:
+        case actionType.UNFOL_USER_SUCCESS:
+        case actionType.FOL_USER_SUCCESS:
+            console.log(payload)
             return {
                 ...state, 
                 following:payload.profile.following

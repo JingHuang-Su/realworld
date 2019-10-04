@@ -21,12 +21,27 @@ export function* updateUserSaga(action) {
 }
 
 export function* getUserSaga() {
-  if(localStorage.token){
-    setAuthToken(localStorage.token)
-  }
+  // if(localStorage.token){
+  //   setAuthToken(localStorage.token)
+  // }
     const res = yield axios.get(
         `${defaultURL}/api/user`
       );
 
     yield put(actionsFunction.getUserSuccess(res.data))
+}
+
+
+export function* folUserSaga(action) {
+  const res = yield axios.post(`${defaultURL}/api/profiles/${action.username}/follow`);
+  yield put(actionsFunction.followUserSuccess(res.data))
+
+}
+
+export function* unFolUserSaga(action) { 
+  const res = yield axios.delete(
+    `${defaultURL}/api/profiles/${action.username}/follow`
+  );
+
+  yield put(actionsFunction.unfollowUserSuccess(res.data))
 }

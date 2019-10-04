@@ -272,7 +272,7 @@ export const createCommentSuccess = (data) => {
 //DEL Comment
 //axios.del(https://conduit.productionready.io/api/articles/${slug}/comments/${commentId})
 
-export const delComment = (slug, commentId) => async dispatch => {
+export const delComment = (slug, commentId)  => {
   
 
   return {
@@ -323,6 +323,17 @@ export const updateUserSuccess = data => {
   };
 };
 
+
+// GET user by name
+// axios.get(https://conduit.productionready.io/api/profiles/${username})
+// {
+//     "profile": {
+//         "username": "jinghuang",
+//         "bio": null,
+//         "image": "",
+//         "following": false(if you not follow jinghuang, else you will get true)
+//     }
+// }
 export const getUser = () => {
   return {
     type: actionType.GET_USER
@@ -339,42 +350,38 @@ export const getUserSuccess = data => {
 // POST followed user
 // axios.post(https://conduit.productionready.io/profiles/${username}/follow)
 
-export const followUser = username => async dispatch => {
-  const res = await axios.post(`${defaultURL}/api/profiles/${username}/follow`);
-  dispatch({
-    type: actionType.FOL_USER,
-    payload: res.data
-  });
+export const followUser = username => {
+
+  return {
+    type:actionType.FOL_USER,
+    username: username
+  }
 };
 
-// GET user by name
-// axios.get(https://conduit.productionready.io/api/profiles/${username})
-// {
-//     "profile": {
-//         "username": "jinghuang",
-//         "bio": null,
-//         "image": "",
-//         "following": false(if you not follow jinghuang, else you will get true)
-//     }
-// }
-export const getFollowUser = username => async dispatch => {
-  const res = await axios.get(`${defaultURL}/api/profiles/${username}`);
-  dispatch({
-    type: actionType.GET_USER,
-    payload: res.data
-  });
-};
+export const followUserSuccess = data => {
+  return {
+    type: actionType.FOL_USER_SUCCESS,
+    payload:data
+  }
+}
+
+
 // DEL user who you followed
 // axios.post(https://conduit.productionready.io/api/profile/${username}/follow) )
 
 //the following status of user(username) will change to false
 
-export const unfollowUser = username => async dispatch => {
-  const res = await axios.delete(
-    `${defaultURL}/api/profiles/${username}/follow`
-  );
-  dispatch({
-    type: actionType.UNFOL_USER,
-    payload: res.data
-  });
+export const unfollowUser = username => {
+  return {
+    type:actionType.UNFOL_USER,
+    username:username
+  }
 };
+
+
+export const unfollowUserSuccess = data => {
+  return {
+    type: actionType.UNFOL_USER_SUCCESS,
+    payload: data
+  }
+}
