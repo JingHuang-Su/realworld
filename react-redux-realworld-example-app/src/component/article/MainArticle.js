@@ -25,7 +25,7 @@ const MainArticle = ({
   }, [getArticleBySlug, slug]);
 
 
-  return article.loading ? (
+  return article.loading || !article.article || auth.loading? (
     <div>loading</div>
   ) : (
     <div className="article-page">

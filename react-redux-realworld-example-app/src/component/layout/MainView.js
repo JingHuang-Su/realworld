@@ -6,79 +6,75 @@ import { getArticleByTag, getArticle, getArticleByFeed} from "../../action";
 import MainViewCard from './MainviewCard'
 
 
-const YourFeedTab = ({ isAuth , onFeedType, type}) => {
+const YourFeedTab = ({ isAuth , getArticleByFeed}) => {
   if (isAuth) {
     return (
       <li className="nav-item">
-        <a
+        <button
           href=""
-          className={type === "feed" ? "nav-link active" : "nav-link"}
-          onClick={onFeedType}
+          // className={type === "feed" ? "nav-link active" : "nav-link"}
+          onClick={()=>getArticleByFeed()}
         >
           Your Feed
-        </a>
+        </button>
       </li>
     );
   }
   return null;
 };
 
-const GlobalFeedTab = ({ onFeedType, type}) => {
+const GlobalFeedTab = ({getArticle}) => {
   return (
     <li className="nav-item">
-      <a
+      <button
         href=""
-        className={type === "all" ? "nav-link active" : "nav-link"}
-        onClick={onFeedType}
+        // className={type === "all" ? "nav-link active" : "nav-link"}
+        onClick={()=>getArticle()}
       >
         Global Feed
+      </button>
+    </li>
+  );
+};
+
+const TagFilterTab = tag => {
+  console.log(tag)
+  if (!tag) {
+    return null;
+  }
+
+  return (
+    <li className="nav-item">
+      <a href="" className="nav-link active">
+        <i className="ion-pound"></i> {tag}
       </a>
     </li>
   );
 };
 
-// const TagFilterTab = tag => {
-//   if (!tag) {
-//     return null;
-//   }
-
-//   return (
-//     <li className="nav-item">
-//       <a href="" className="nav-link active">
-//         <i className="ion-pound"></i> {tag}
-//       </a>
-//     </li>
-//   );
-// };
-
 
 //TODO: get article by feed need to do in the future
 const MainView = ({article:{articles, length}, auth:{isAuth}, home:{tag}, getArticle, getArticleByTag, getArticleByFeed}) => {
-  const [feedType, setFeedType] = useState({ type: "all"});
-  const { type } = feedType;
+  // const [feedType, setFeedType] = useState({ type: "all"});
+  // const { type } = feedType; 
   useEffect(() => {
-    if (type === "all") {
       getArticle();
-    } else if (type === "feed") {
-      getArticleByFeed();
-    }
     // getArticleByTag();
     
-  }, [getArticle, getArticleByFeed, type]);
+  }, [getArticle]);
 
-  const onFeedType = type => {
-    setFeedType({ type });
-
-  };
+  // const onFeedType = type => {
+  //   setFeedType({ type:type });
+  // };
   return (
     <div className="col-md-9">
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
-          <YourFeedTab isAuth = {isAuth} type={type} onFeedType={onFeedType} />
+          <YourFeedTab isAuth = {isAuth}  getArticleByFeed ={getArticleByFeed}/>
 
-          <GlobalFeedTab type={type} onFeedType={onFeedType} />
+          <GlobalFeedTab getArticle={getArticle}/>
 
-          {/* <TagFilterTab tag={tag} onFeedType={onFeedType} /> */}
+          {/* <TagFilterTab tag={tag}  /> */}
         </ul>
       </div>
 

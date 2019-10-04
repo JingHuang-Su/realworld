@@ -30,7 +30,7 @@ const Article = ({ article, canModify }) => {
   return (
     <div className="article-meta">
       <Link to={`/${article.author.username}`}>
-        <img src={article.author.image} alt={article.author.username} />
+        <img src={article.author.image?article.author.image:"https://static.productionready.io/images/smiley-cyrus.jpg"} alt={article.author.username} />
       </Link>
 
       <div className="info">

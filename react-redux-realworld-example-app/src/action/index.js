@@ -144,31 +144,40 @@ export const delArticleBySlug = slug => async dispatch => {
   });
 };
 
+
+// get user favoriate article by their name
+
+export const getAuthorFavArticle = username => {
+  return {
+    type: actionType.GET_AUTHOR_FAV_ARTICLE,
+    username : username
+  }
+}
+
+export const getAuthorFavArticleSuccess =data => {
+  return {
+    type:actionType.GET_AUTHOR_FAV_ARTICLE_SUCCESS,
+    payload:data
+  }
+}
+
+
+//get article by feed
+export const getArticleByFeed =() => {
+  return {
+    type: actionType.GET_ARTICLE_BY_FEED
+  }
+}
+
+export const getArticleByFeedSuccess = (data) =>{
+  return {
+    type:actionType.GET_ARTICLE_BY_FEED_SUCCESS,
+    payload:data
+  }
+}
+
 // POST like
 // axios.post(https://conduit.productionready.io/api/articles/${slug}/favorite)
-// {
-//     "article": {
-//         "title": "How to train your dragon(update)",
-//         "slug": "how-to-train-your-dragon-z3tac9",
-//         "body": "You have to believe",
-//         "createdAt": "2019-10-02T09:20:15.740Z",
-//         "updatedAt": "2019-10-02T09:25:19.777Z",
-//         "tagList": [
-//             "dragons",
-//             "angularjs",
-//             "reactjs"
-//         ],
-//         "description": "Ever wonder how?",
-//         "author": {
-//             "username": "jinghuang",
-//             "bio": null,
-//             "image": "",
-//             "following": false
-//         },
-//         "favorited": true,
-//         "favoritesCount": 1
-//     }
-// }
 
 export const favArticle = slug => {
   return {
@@ -325,15 +334,7 @@ export const updateUserSuccess = data => {
 
 
 // GET user by name
-// axios.get(https://conduit.productionready.io/api/profiles/${username})
-// {
-//     "profile": {
-//         "username": "jinghuang",
-//         "bio": null,
-//         "image": "",
-//         "following": false(if you not follow jinghuang, else you will get true)
-//     }
-// }
+
 export const getUser = () => {
   return {
     type: actionType.GET_USER

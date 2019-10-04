@@ -13,7 +13,9 @@ import {
   updateArticleSaga,
   getCommentSaga,
   delCommentSaga,
-  createCommentSaga
+  createCommentSaga,
+  getAuthorFavArticleSaga,
+  getArticleByFeedSaga
 } from "./article";
 
 export function* watchAuth() {
@@ -41,7 +43,9 @@ export function* watchArticle() {
     takeEvery(actionType.UPDATE_ARTICLE, updateArticleSaga),
     takeEvery(actionType.GET_COMMENTS, getCommentSaga),
     takeEvery(actionType.DEL_COMMENT, delCommentSaga),
-    takeEvery(actionType.CREATE_COMMENT, createCommentSaga)
+    takeEvery(actionType.CREATE_COMMENT, createCommentSaga),
+    takeEvery(actionType.GET_AUTHOR_FAV_ARTICLE, getAuthorFavArticleSaga),
+    takeEvery(actionType.GET_ARTICLE_BY_FEED, getArticleByFeedSaga)
   ]);
 }
 

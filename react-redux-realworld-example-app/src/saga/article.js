@@ -110,3 +110,17 @@ export function* createCommentSaga(action){
 
   yield put(actionsFunction.createCommentSuccess(res.data))
 }
+
+
+export function* getAuthorFavArticleSaga(action) {
+  const res = yield axios.get(`${defaultURL}/api/articles?favoriated=${action.username}`)
+  yield put(actionsFunction.getAuthorFavArticleSuccess(res.data))
+}
+
+
+export function* getArticleByFeedSaga(){
+  const res = yield axios.get(`${defaultURL}/api/articles/feed`)
+
+  yield put(actionsFunction.getArticleByFeedSuccess(res.data))
+
+}

@@ -1,60 +1,43 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getUserById, followUser, unfollowUser } from "../../action";
+import { getUserById, followUser, unfollowUser,getArticleByUserName ,getAuthorFavArticle} from "../../action";
 import { Link } from "react-router-dom";
-
+import MainviewCard from '../layout/MainviewCard'
 const Profile = ({
   auth,
   profile,
   getUserById,
   match,
   followUser,
-  unfollowUser
+  unfollowUser,
+  article,
+  getArticleByUserName,
+  getAuthorFavArticle
 }) => {
 
   
   useEffect(() => {
     getUserById(match.params.id);
-  }, [getUserById, match.params.id]);
-  console.log(!profile.loading && profile.profile.profile)
-  console.log(auth)
+    getArticleByUserName(match.params.id)
+  }, [getUserById,getArticleByUserName, match.params.id, profile.following]);
 
   const id = match.params.id;
 
-  //   const renderTabs = () => {
-  //     return (
-  //       <ul className="nav nav-pills outline-active">
-  //         <li className="nav-item">
-  //           <Link className="nav-link active" to={`${profile.username}`}>
-  //             My Articles
-  //           </Link>
-  //         </li>
-
-  //         <li className="nav-item">
-  //           <Link className="nav-link" to={`${profile.username}/favorites`}>
-  //             Favorited Articles
-  //           </Link>
-  //         </li>
-  //       </ul>
-  //     );
-  //   };
-
+    
   const onClick = user => {
+    console.log(user)
     if (profile.following) {
-      followUser(user);
-    } else {
       unfollowUser(user);
+    } else {
+      followUser(user);
     }
   };
 
-  let classes = "btn btn-sm action-btn";
-  //   if (profile.following) {
-  //     classes += " btn-secondary";
-  //   } else {
-  //     classes += " btn-outline-secondary";
-  //   }
 
-  return (profile.loading || auth.loading || !profile.profile.profile) ? (
+  let classes = "btn btn-sm action-btn";
+   
+
+  return (profile.loading || auth.loading || !profile.profile.profile||article.loading) ? (
     <div>loading</div>
   ) : (
     <div className="profile-page">
@@ -62,12 +45,13 @@ const Profile = ({
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
+            
               <img
-                src={profile.profile.profile.image}
+                src={profile.profile.profile.image ? profile.profile.profile.image:"https://static.productionready.io/images/smiley-cyrus.jpg"}
                 className="user-img"
                 alt={profile.profile.profile.username}
               />
-              <h4>{console.log(profile.profile.profile.username)}</h4>
+              <h4>{profile.profile.profile.username}</h4>
               <p>{profile.profile.profile.bio}</p>
               {auth.user.username === id ? (
                 <Link
@@ -79,7 +63,7 @@ const Profile = ({
               ) : null}
               {auth.user.username === id ? null : (
                 <button
-                  className={classes}
+                  className={profile.following?`${classes} +=  btn-secondary`: `${classes} += btn-outline-secondary`}
                   onClick={() => onClick(profile.profile.profile.username)}
                 >
                   <i className="ion-plus-round"></i>
@@ -95,14 +79,25 @@ const Profile = ({
       <div className="container">
         <div className="row">
           <div className="col-xs-12 col-md-10 offset-md-1">
-            {/* <div className="articles-toggle">
-                {renderTabs()}
-              </div>  */}
+            <div className="articles-toggle">
+                  <ul className="nav nav-pills outline-active">
+                <li className="nav-item">
+                  <button className="nav-link" onClick = {() => getArticleByUserName(profile.profile.profile.username)}>
+                    My Articles
+                  </button>
+                </li>
 
-            {/* <Article
-                articles={this.props.articles}
-                articlesCount={this.props.articlesCount}
-                state={this.props.currentPage} /> */}
+                <li className="nav-item">
+                  <button className="nav-link" onClick = {() => getAuthorFavArticle(profile.profile.profile.username)}>
+                    Favorited Articles
+                  </button>
+                </li>
+              </ul>
+            </div> 
+
+            <MainviewCard
+                articles={article.articles}
+                />
           </div>
         </div>
       </div>
@@ -112,9 +107,10 @@ const Profile = ({
 
 const mapStateToProp = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  article:state.article
 });
 export default connect(
   mapStateToProp,
-  { getUserById, unfollowUser, followUser }
+  { getUserById, unfollowUser, followUser,getArticleByUserName, getAuthorFavArticle}
 )(Profile);

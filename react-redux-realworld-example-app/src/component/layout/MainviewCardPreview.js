@@ -26,7 +26,7 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
     <div className="article-preview">
       <div className="article-meta">
         <Link to={`/${article.author.username}`}>
-          <img src={article.author.image} alt={article.author.username} />
+          <img src={article.author.image ? article.author.image : "https://static.productionready.io/images/smiley-cyrus.jpg"}  />
         </Link>
 
         <div className="info">

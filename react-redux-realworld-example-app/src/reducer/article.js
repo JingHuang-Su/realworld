@@ -22,6 +22,8 @@ export default (state = initialState, action) => {
       }
 
     case actionType.GET_ARTICLE_SUCCESS:
+    case actionType.GET_AUTHOR_FAV_ARTICLE_SUCCESS:
+    case actionType.GET_ARTICLE_BY_FEED_SUCCESS:
       return {
         ...state,
         articles: payload.articles,
