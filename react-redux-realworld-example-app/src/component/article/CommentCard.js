@@ -10,7 +10,6 @@ import {Link} from 'react-router-dom'
 import React from "react";
 
 const CommentCard = ({slug, comment, auth,delComment }) => {
-  const canDelete = comment.author.username === auth.user.username;
 
   const onClick = (slug, commentId)=> {
     delComment(slug, commentId)
@@ -36,9 +35,9 @@ const CommentCard = ({slug, comment, auth,delComment }) => {
           {new Date(comment.createdAt).toDateString()}
         </span>
 
-        {canDelete ? (<span className="mod-options">
+        {auth.isAuth ? ( comment.author.username === auth.user.username && (<span className="mod-options">
         <i className="ion-trash-a" onClick={e => onClick(slug, comment.id)}></i>
-      </span>) : null}
+      </span>) ): null}
       </div>
     </div>
   );

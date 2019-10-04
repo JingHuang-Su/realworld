@@ -347,6 +347,20 @@ export const getUserSuccess = data => {
   };
 };
 
+
+export const getUserById = (username) => {
+  return {
+    type:actionType.GET_USER_BY_ID,
+    username : username
+  }
+}
+
+export const getUserByIdSuccess = (data) => {
+  return {
+    type: actionType.GET_USER_BY_ID_SUCCESS,
+    payload:data
+  }
+}
 // POST followed user
 // axios.post(https://conduit.productionready.io/profiles/${username}/follow)
 

@@ -1,6 +1,6 @@
 import { loginSaga, registerSaga, loadUserSaga, authErrorSaga } from "./auth";
 import { getTagsSaga } from "./home";
-import { updateUserSaga, getUserSaga, folUserSaga , unFolUserSaga} from "./profile";
+import { updateUserSaga, getUserSaga, folUserSaga , unFolUserSaga, getUserByIdSaga} from "./profile";
 
 import * as actionType from "../action/type";
 import { takeEvery, all, take } from "redux-saga/effects";
@@ -50,6 +50,7 @@ export function* watchProfile() {
     takeEvery(actionType.UPDATE_USER, updateUserSaga),
     takeEvery(actionType.GET_USER, getUserSaga),
     takeEvery(actionType.FOL_USER, folUserSaga),
-    takeEvery(actionType.UNFOL_USER, unFolUserSaga)
+    takeEvery(actionType.UNFOL_USER, unFolUserSaga),
+    takeEvery(actionType.GET_USER_BY_ID, getUserByIdSaga)
   ]);
 }

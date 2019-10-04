@@ -14,23 +14,23 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
     NOT_FAVORITED_CLASS;
 
   
-  const onClick = () => {
+  const onClick = (slug) => {
     if (article.favorited) {
-      unFavArticle(article.slug);
+      unFavArticle(slug);
     } else {
-      favArticle(article.slug);
+      favArticle(slug);
     }
   };
 
   return (
     <div className="article-preview">
       <div className="article-meta">
-        <Link to={`/@${article.author.username}`}>
+        <Link to={`/${article.author.username}`}>
           <img src={article.author.image} alt={article.author.username} />
         </Link>
 
         <div className="info">
-          <Link className="author" to={`/@${article.author.username}`}>
+          <Link className="author" to={`/${article.author.username}`}>
             {article.author.username}
           </Link>
           <span className="date">
@@ -39,7 +39,7 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
         </div>
 
         <div className="pull-xs-right">
-          <button className={favoriteButtonClass} onClick = {onClick}>
+          <button className={favoriteButtonClass} onClick = {() => onClick(article.slug)}>
             <i className="ion-heart"></i> {article.favoritesCount}
           </button>
         </div>

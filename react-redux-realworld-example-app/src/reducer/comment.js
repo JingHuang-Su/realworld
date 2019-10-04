@@ -26,7 +26,6 @@ export default (state = initialState, action) => {
       };
       
     case actionType.DEL_COMMENT_SUCCESS:
-      console.log(`aaa ${payload}`)
       return {
         ...state,
         comments: state.comments.filter(

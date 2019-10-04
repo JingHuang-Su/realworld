@@ -26,7 +26,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         articles: payload.articles,
-        length: payload.articlesCount
+        length: payload.articlesCount,
+        loading:false
       };
     case actionType.GET_ARTICLE_TAG_OR_SLUG_SUCCESS:
         return {
@@ -43,14 +44,16 @@ export default (state = initialState, action) => {
       };
     case actionType.FAV_ARTICLE_SUCCESS:
     case actionType.UNFAV_ARTICLE_SUCCESS:
+      console.log(payload)
       return {
         ...state,
+        loading:false,
         articles: state.articles.map(a =>
           a.slug === payload.slug
             ? {
                 ...a,
-                favoriated: payload.data.article.favorited,
-                favoriatesCount: payload.data.article.favoritesCount
+                favorited: payload.data.article.favorited,
+                favoritesCount: payload.data.article.favoritesCount
               }
             : a
         )

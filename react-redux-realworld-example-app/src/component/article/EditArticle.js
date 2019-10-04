@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { updateArticle, getArticleBySlug } from "../../action";
 
 //TODO: need to remeber put the slug name as prop
-const EditArticle = ({ updateArticle, slug, article }) => {
+const EditArticle = ({ updateArticle, match, article, getArticleBySlug }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -22,19 +22,19 @@ const EditArticle = ({ updateArticle, slug, article }) => {
     e.preventDefault();
     updateArticle(formData);
   };
-
+  
   useEffect(() => {
-    getArticleBySlug(slug)
+    getArticleBySlug(match.params.id)
     
     setFormData({
-      image: loading||!article.title ? "" : article.title,
-      username: loading||!article.description ? "" : article.description,
-      bio: loading||!article.body ? "" : article.body,
+      image: article.loading||!article.article.article.title ? "" : article.article.article.title,
+      username: article.loading||!article.article.article.description ? "" : article.article.article.description,
+      bio: article.loading||!article.article.article.body ? "" : article.article.article.body,
       // tagInput: loading||!article.tagInput ? "" : article.tagInput,
     })
     
 
-  }, [loading, getArticleBySlug])
+  }, [article.loading, getArticleBySlug])
 
   return (
     <div className="editor-page">
@@ -129,6 +129,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(
-  null,
-  { updateArticle }
+  mapStateToProps,
+  { updateArticle, getArticleBySlug }
 )(EditArticle);

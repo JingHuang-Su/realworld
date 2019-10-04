@@ -34,7 +34,7 @@ const MainArticle = ({
       <div className="banner">
         <div className="container">
           <h1>{article.article.article.title}</h1>
-          <Article article={article.article.article} canModify={true} />
+          <Article article={article.article.article} canModify={auth.user.username === article.article.article.author.username  } />
         </div>
       </div>
 

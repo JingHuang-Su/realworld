@@ -12,6 +12,8 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
     // password: ""
   });
 
+  console.log(profile)
+
   const { image, username, bio, email } = formData;
 
   const onChange = e => {
@@ -37,7 +39,7 @@ const EditProfile = ({updateUser, getUser, profile:{profile, loading}}) => {
     });
   }, [loading, getUser]);
 
-  return (
+  return loading ? (<div>loading</div>):(
     <div className="settings-page">
       <div className="container page">
         <div className="row">

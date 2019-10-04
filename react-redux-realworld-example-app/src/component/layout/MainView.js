@@ -56,8 +56,6 @@ const GlobalFeedTab = ({ onFeedType, type}) => {
 const MainView = ({article:{articles, length}, auth:{isAuth}, home:{tag}, getArticle, getArticleByTag, getArticleByFeed}) => {
   const [feedType, setFeedType] = useState({ type: "all"});
   const { type } = feedType;
-  console.log(articles)
-  console.log(type)
   useEffect(() => {
     if (type === "all") {
       getArticle();

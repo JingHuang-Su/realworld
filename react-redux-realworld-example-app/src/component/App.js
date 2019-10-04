@@ -13,6 +13,8 @@ import Header from './layout/Header'
 import EditProfile from "./profile/EditProfile";
 import ArticleForm from './article/ArticleForm'
 import MainArticle from './article/MainArticle'
+import Profile from './profile/Profile'
+import EditArticle from "./article/EditArticle";
 
 if(localStorage.token){
   setAuthToken(localStorage.token)
@@ -32,6 +34,8 @@ const App  = () =>  {
             <Route exact path="/edit" component={EditProfile} />
             <Route exact path="/newArticle" component ={ArticleForm} />
             <Route exact path="/article/:id" component = {MainArticle} />
+            <Route exact path="/:id" component = {Profile} />
+            <Route exact path="/edit/:id" component = {EditArticle} />
           </Switch>
         </Router>
       </Provider>

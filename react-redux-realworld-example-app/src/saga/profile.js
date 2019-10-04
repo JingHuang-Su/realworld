@@ -45,3 +45,8 @@ export function* unFolUserSaga(action) {
 
   yield put(actionsFunction.unfollowUserSuccess(res.data))
 }
+
+export function* getUserByIdSaga(action) {
+  const res = yield axios.get(`${defaultURL}/api/profiles/${action.username}`)
+  yield put(actionsFunction.getUserByIdSuccess(res.data))
+}

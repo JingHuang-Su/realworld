@@ -58,7 +58,7 @@ const LoggedInView = ({isAuth, user})=> {
 
         <li className="nav-item">
           <Link
-            to={`/@${user.username}`}
+            to={`/${user.username}`}
             className="nav-link">
             <img src={user.image} className="user-pic" alt={user.username} />
             {user.image ?  user.username:null}

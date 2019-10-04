@@ -29,12 +29,12 @@ const Article = ({ article, canModify }) => {
   console.log(article)
   return (
     <div className="article-meta">
-      <Link to={`/@${article.author.username}`}>
+      <Link to={`/${article.author.username}`}>
         <img src={article.author.image} alt={article.author.username} />
       </Link>
 
       <div className="info">
-        <Link to={`/@${article.author.username}`} className="author">
+        <Link to={`/${article.author.username}`} className="author">
           {article.author.username}
         </Link>
         <span className="date">
@@ -44,7 +44,7 @@ const Article = ({ article, canModify }) => {
       {canModify ? (
         <span>
           <Link
-            to={`/editor/${article.slug}`}
+            to={`/edit/${article.slug}`}
             className="btn btn-outline-secondary btn-sm"
           >
             <i className="ion-edit"></i> Edit Article
