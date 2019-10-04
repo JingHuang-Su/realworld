@@ -253,40 +253,58 @@ export const createArticleSuccess = data => {
 //axios.post(https://conduit.productionready.io/api/articles/${slug}/comments/)
 
 //return single comment that is your post
-export const createComment = (slug, formData) => async dispatch => {
-  const res = await axios.post(
-    `${defaultURL}/api/articles/${slug}/comments`,
-    formData,
-    setHeaderConfig
-  );
-  dispatch({
+export const createComment = (slug, formData) => {
+  
+  return {
     type: actionType.CREATE_COMMENT,
-    payload: res.data
-  });
+    formData:formData,
+    slug: slug
+  }
 };
+
+
+export const createCommentSuccess = (data) => {
+  return {
+    type: actionType.CREATE_ARTICLE_SUCCESS,
+    payload:data
+  }
+}
 //DEL Comment
 //axios.del(https://conduit.productionready.io/api/articles/${slug}/comments/${commentId})
 
 export const delComment = (slug, commentId) => async dispatch => {
-  await axios.delete(
-    `${defaultURL}/api/articles/${slug}/comments/${commentId}`
-  );
-  dispatch({
+  
+
+  return {
     type: actionType.DEL_COMMENT,
-    payload: commentId
-  });
+    slug:slug,
+    commentId: commentId
+  }
 };
+
+export const delCommentSuccess = (commentId) => {
+  return {
+    type: actionType.DEL_COMMENT_SUCCESS,
+    payload:commentId
+  }
+}
 
 //GET Comment
 //axios.get(https://conduit.productionready.io/api/articles/${slug}/comments/)
-export const getComment = slug => async dispatch => {
-  const res = await axios.get(`${defaultURL}/api/articles/${slug}/comments`);
-  dispatch({
-    type: actionType.GET_COMMENTS,
-    payload: res.data
-  });
+export const getComment = slug=> {
+  return {
+    type:actionType.GET_COMMENTS,
+    slug:slug
+  }
 };
 
+
+export const getCommentSuccess = data => {
+  return {
+    type:actionType.GET_COMMENTS_SUCCESS,
+    payload:data
+  }
+}
 /////////////
 ///Profile///
 /////////////

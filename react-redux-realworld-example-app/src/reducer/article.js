@@ -40,9 +40,6 @@ export default (state = initialState, action) => {
       };
     case actionType.FAV_ARTICLE_SUCCESS:
     case actionType.UNFAV_ARTICLE_SUCCESS:
-      console.log(payload)
-      console.log(payload.slug)
-      console.log(payload.data.article.favorited)
       return {
         ...state,
         articles: state.articles.map(a =>
@@ -59,17 +56,17 @@ export default (state = initialState, action) => {
     case actionType.PROFILE_FAVORITES_PAGE_UNLOADED:
       return {};
 
-    case actionType.GET_COMMENTS:
+    case actionType.GET_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: payload.comments
+        comments: payload
       };
-    case actionType.CREATE_COMMENT:
+    case actionType.CREATE_COMMENT_SUCCESS:
       return {
         ...state,
-        comments: [payload.comment, ...state.comments]
+        comments: [payload, ...state.comments]
       };
-    case actionType.DEL_COMMENT:
+    case actionType.DEL_COMMENT_SUCCESS:
       return {
         ...state,
         comments: state.comments.filter(

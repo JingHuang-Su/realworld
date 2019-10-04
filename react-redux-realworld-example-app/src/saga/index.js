@@ -10,7 +10,10 @@ import {
   favArticleSaga,
   unfavArticleSaga,
   createArticleSaga,
-  updateArticleSaga
+  updateArticleSaga,
+  getCommentSaga,
+  delCommentSaga,
+  createCommentSaga
 } from "./article";
 
 export function* watchAuth() {
@@ -35,7 +38,10 @@ export function* watchArticle() {
     takeEvery(actionType.FAV_ARTICLE, favArticleSaga),
     takeEvery(actionType.UNFAV_ARTICLE, unfavArticleSaga),
     takeEvery(actionType.CREATE_ARTICLE, createArticleSaga),
-    takeEvery(actionType.UPDATE_ARTICLE, updateArticleSaga)
+    takeEvery(actionType.UPDATE_ARTICLE, updateArticleSaga),
+    takeEvery(actionType.GET_COMMENTS, getCommentSaga),
+    takeEvery(actionType.DEL_COMMENT, delCommentSaga),
+    takeEvery(actionType.CREATE_COMMENT, createCommentSaga)
   ]);
 }
 
