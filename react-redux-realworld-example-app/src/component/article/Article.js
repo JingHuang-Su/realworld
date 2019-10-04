@@ -25,7 +25,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // receive article as props
-const Article = ({ article }) => {
+const Article = ({ article, canModify }) => {
+  console.log(article)
   return (
     <div className="article-meta">
       <Link to={`/@${article.author.username}`}>
@@ -40,8 +41,22 @@ const Article = ({ article }) => {
           {new Date(article.createdAt).toDateString()}
         </span>
       </div>
+      {canModify ? (
+        <span>
+          <Link
+            to={`/editor/${article.slug}`}
+            className="btn btn-outline-secondary btn-sm"
+          >
+            <i className="ion-edit"></i> Edit Article
+          </Link>
 
-      {/* <ArticleActions canModify={props.canModify} article={article} /> */}
+          <button className="btn btn-outline-danger btn-sm" >
+            <i className="ion-trash-a"></i> Delete Article
+          </button>
+        </span>
+      ) : (
+        <span></span>
+      )}
     </div>
   );
 };

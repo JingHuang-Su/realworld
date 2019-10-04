@@ -3,13 +3,18 @@
 // if auth then shows comment form
 // else display signup and login on the screen
 
-
+import {delComment} from '../../action'
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom'
 
 import React from "react";
 
-const CommentCard = ({ comment, auth }) => {
-  const canDelete = comment.author.user === auth.user.name;
+const CommentCard = ({slug, comment, auth,delComment }) => {
+  const canDelete = comment.author.username === auth.user.username;
+
+  const onClick = (slug, commentId)=> {
+    delComment(slug, commentId)
+  }
   return (
     <div className="card">
       <div className="card-block">
@@ -31,9 +36,9 @@ const CommentCard = ({ comment, auth }) => {
           {new Date(comment.createdAt).toDateString()}
         </span>
 
-        {canDelete ? <span className="mod-options">
-        <i className="ion-trash-a" onClick={del}></i>
-      </span> : null}
+        {canDelete ? (<span className="mod-options">
+        <i className="ion-trash-a" onClick={e => onClick(slug, comment.id)}></i>
+      </span>) : null}
       </div>
     </div>
   );
@@ -45,7 +50,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  deleteComment
-)(Comment);
+  {delComment}
+)(CommentCard);
 
 //import deleteComment function from action folder

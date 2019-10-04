@@ -265,8 +265,8 @@ export const createComment = (slug, formData) => {
 
 export const createCommentSuccess = (data) => {
   return {
-    type: actionType.CREATE_ARTICLE_SUCCESS,
-    payload:data
+    type: actionType.CREATE_COMMENT_SUCCESS,
+    payload:data.comment
   }
 }
 //DEL Comment

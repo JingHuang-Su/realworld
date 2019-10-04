@@ -1,19 +1,28 @@
-import React from "react";
+import React, {useEffect} from "react";
+import CommentForm from './CommentForm'
 import CommentList from './CommentList'
+import { connect } from 'react-redux'
+import {  getComment } from "../../action";
 
-const Comment = ({ auth, comments, slug}) => {
-  return auth.isAuth ? (
+import {Link} from 'react-router-dom'
+const Comment = ({ auth, slug, comment,getComment}) => {
+  const {comments, loading} = comment;
+  useEffect(()=>{
+    getComment(slug)
+    
+  }, [getComment, slug, comments.length])
+  console.log(comments)
+  return loading ? (<div>loading </div>):auth.isAuth ?(
     <div className="col-xs-12 col-md-8 offset-md-2">
       <div>
-        {/* <list-errors errors={props.errors}></list-errors> */}
-        <CommentInput slug={slug} currentUser = {auth.user} />
+        <CommentForm slug={slug} auth= {auth} />
       </div>
-
       <CommentList
         comments={comments}
         slug={slug}
-        currentUser = {auth.user}
+        auth = {auth}
       />
+      
     </div>
   ) : (
     <div className="col-xs-12 col-md-8 offset-md-2">
@@ -21,18 +30,19 @@ const Comment = ({ auth, comments, slug}) => {
         <Link to="/login">Sign in</Link>
         &nbsp;or&nbsp;
         <Link to="/register">sign up</Link>
-        &nbsp;to add comments on this article.
+        &nbsp;to add comment on this article.
       </p>
-
       <CommentList
         comments={comments}
         slug={slug}
-        currentUser = {auth.user}
+        auth = {auth}
       />
     </div>
   );
 };
 
 
-
-export default Comment;
+const mapStateToProps = state => ({
+  comment: state.comment
+})
+export default connect(mapStateToProps, {getComment})(Comment);

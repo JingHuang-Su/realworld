@@ -5,19 +5,20 @@ import CommentCard from "./CommentCard";
 
 import React from "react";
 
-const CommentList = ({ comments, auth, slug }) => {
+const CommentList = ({ comments,  auth, slug }) => {
+  console.log(comments)
   return (
     <div>
       <div>
-        {comments.map(comment => {
+        { comments && comments.map(c => {
           return (
             <CommentCard
-              comment={comment}
-              currentUser={auth.user}
+              comment={c}
+              auth ={auth}
               slug={slug}
-              key={comment.id}
+              key={c.id}
             />
-          );
+          )
         })}
       </div>
     </div>

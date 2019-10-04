@@ -20,7 +20,6 @@ const ArticleAction = ({ canModify }) => {
         </span>
       </div>
 
-      <ArticleActions canModify={props.canModify} article={article} />
     </div>
   ) : (
     <span></span>

@@ -29,6 +29,7 @@ export function* getArticleByAllOrAuthorSaga(action) {
 }
 
 export function* getArticleByTagOrSlugSaga(action) {
+  console.log(action)
   let res;
   if (action.location === "tag") {
     res = yield axios.get(`${defaultURL}/api/articles?tag=${action.location}`);
@@ -82,6 +83,7 @@ export function* getCommentSaga(action) {
   const res = yield axios.get(
     `${defaultURL}/api/articles/${action.slug}/comments`
   );
+  
   yield put(actionsFunction.getCommentSuccess(res.data));
 }
 
@@ -89,7 +91,7 @@ export function* delCommentSaga(action) {
   yield axios.delete(
     `${defaultURL}/api/articles/${action.slug}/comments/${action.commentId}`
   );
-  yield put(actionsFunction.getCommentSuccess(action.commentId));
+  yield put(actionsFunction.delCommentSuccess(action.commentId));
 }
 
 

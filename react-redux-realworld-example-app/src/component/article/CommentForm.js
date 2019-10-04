@@ -1,11 +1,11 @@
 // Let user input a comment
 
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
+import {createComment} from '../../action'
 
-//TODO: import createComment from action folder
 
-const CommentForm = () => {
+const CommentForm = ({slug,auth, createComment}) => {
   const [formData, setFormData] = useState({
     body: ""
   });
@@ -18,7 +18,8 @@ const CommentForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    // createComment(formData)
+    createComment(slug, formData)
+    setFormData({body:""})
   };
   return (
     <form className="card comment-form" onSubmit={e=>onSubmit(e)}>
@@ -28,6 +29,7 @@ const CommentForm = () => {
           placeholder="Write a comment..."
           value={body}
           onChange={e=>onChange(e)}
+          name="body"
           rows="3"
         ></textarea>
       </div>
@@ -45,11 +47,7 @@ const CommentForm = () => {
   );
 };
 
-
-const mapStateToProp = state => ({
-    auth: state.auth
-})
 export default connect(
-  mapStateToProp,
+  null,
   { createComment }
 )(CommentForm);

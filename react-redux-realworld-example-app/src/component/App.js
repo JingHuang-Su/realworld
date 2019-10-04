@@ -12,6 +12,7 @@ import {loadUser} from '../action'
 import Header from './layout/Header'
 import EditProfile from "./profile/EditProfile";
 import ArticleForm from './article/ArticleForm'
+import MainArticle from './article/MainArticle'
 
 if(localStorage.token){
   setAuthToken(localStorage.token)
@@ -30,6 +31,7 @@ const App  = () =>  {
             <Route exact path="/register" component={Signup} />
             <Route exact path="/edit" component={EditProfile} />
             <Route exact path="/newArticle" component ={ArticleForm} />
+            <Route exact path="/article/:id" component = {MainArticle} />
           </Switch>
         </Router>
       </Provider>

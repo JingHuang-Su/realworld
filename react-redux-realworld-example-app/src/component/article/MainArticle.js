@@ -1,41 +1,61 @@
 // get slug from this params id
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
-
+import Article from "./Article";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { getArticleBySlug, getComment } from "../../action";
 
+import marked from "marked";
 //get article by slug
 //get comment by slug
 
-const MainArticle = ({ article, match, auth }) => {
+const MainArticle = ({
+  article,
+  match,
+  auth,
+  getArticleBySlug,
+}) => {
   const slug = match.params.id;
+  // console.log(article.loading)
+
   useEffect(() => {
-    getArticlebySlug(slug);
-    getComment(slug);
-  }, [getArticlebySlug, getComment, slug]);
-  return (
+    async function fetchData() {
+      await getArticleBySlug(slug);
+    }
+    fetchData();
+  }, [getArticleBySlug, slug]);
+  console.log(article);
+  // const canModify = !article.loading && article.articleauthor.username === auth.user.username
+  return article.loading ? (
+    <div>loading</div>
+  ) : (
     <div className="article-page">
       <div className="banner">
         <div className="container">
-          <h1>{article.article.title}</h1>
-          <ArticleMeta article={article.article} canModify={canModify} />
+          <h1>{article.article.article.title}</h1>
+          <Article article={article.article.article} canModify={true} />
         </div>
       </div>
 
       <div className="container page">
         <div className="row article-content">
           <div className="col-xs-12">
-            {/* <div dangerouslySetInnerHTML={markup}></div> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked(article.article.article.body, { sanitize: true })
+              }}
+            ></div>
 
             <ul className="tag-list">
-              {article.tag.map(tag => {
-                return (
-                  <li className="tag-default tag-pill tag-outline" key={tag}>
-                    {tag}
-                  </li>
-                );
-              })}
+              {article.article.tagList &&
+                article.article.tagList.map(tag => {
+                  return (
+                    <li className="tag-default tag-pill tag-outline" key={tag}>
+                      {tag}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         </div>
@@ -45,11 +65,7 @@ const MainArticle = ({ article, match, auth }) => {
         <div className="article-actions"></div>
 
         <div className="row">
-          <Comment
-            comments={article.comments || []}
-            slug={slug}
-            currentUser={auth}
-          />
+          <Comment slug={slug} auth={auth} />
         </div>
       </div>
     </div>
@@ -61,5 +77,5 @@ const mapStateToProp = state => ({
 });
 export default connect(
   mapStateToProp,
-  { getArticlebySlug, getComment }
+  { getArticleBySlug, getComment }
 )(MainArticle);
