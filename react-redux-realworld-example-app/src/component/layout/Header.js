@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux'
+import {logout} from '../../action'
 
 const LoggedOutView = ({isAuth}) => {
   if (!isAuth) {
@@ -33,7 +34,7 @@ const LoggedOutView = ({isAuth}) => {
   return null;
 };
 
-const LoggedInView = ({isAuth, user})=> {
+const LoggedInView = ({isAuth, user, logout})=> {
   if (isAuth) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
@@ -57,7 +58,7 @@ const LoggedInView = ({isAuth, user})=> {
         </li>
 
         <li className="nav-item">
-          <Link to="/edit" className="nav-link">
+          <Link className="nav-link" onClick = {e=> logout()}>
             Logout&rarr;
           </Link>
         </li>
@@ -78,7 +79,7 @@ const LoggedInView = ({isAuth, user})=> {
   return null;
 };
 
-const Header = ({auth:{isAuth, user}}) => {
+const Header = ({auth:{isAuth, user}, logout}) => {
     return (
       <nav className="navbar navbar-light">
         <div className="container">
@@ -89,7 +90,7 @@ const Header = ({auth:{isAuth, user}}) => {
 
           <LoggedOutView isAuth = {isAuth} />
 
-          <LoggedInView isAuth = {isAuth} user = {user} />
+          <LoggedInView isAuth = {isAuth} user = {user} logout = {logout} />
         </div>
       </nav>
     );
@@ -100,4 +101,4 @@ const mapStateToProps  = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, {logout})(Header);

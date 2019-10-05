@@ -2,24 +2,23 @@ import * as actionType from "../action/type";
 
 const initialState = {
   articles: [],
-  article:null,
+  article: null,
   length: null,
   tag: null,
-  loading:true
+  loading: true
 };
 
 export default (state = initialState, action) => {
   const { payload, type } = action;
-
 
   switch (type) {
     case actionType.CREATE_ARTICLE_SUCCESS:
     case actionType.UPDATE_ARTICLE_SUCCESS:
       return {
         ...state,
-        article:payload,
-        loading:false
-      }
+        article: payload,
+        loading: false
+      };
 
     case actionType.GET_ARTICLE_SUCCESS:
     case actionType.GET_AUTHOR_FAV_ARTICLE_SUCCESS:
@@ -28,26 +27,27 @@ export default (state = initialState, action) => {
         ...state,
         articles: payload.articles,
         length: payload.articlesCount,
-        tag:null,
-        loading:false
+        tag: null,
+        loading: false
       };
     case actionType.GET_ARTICLE_TAG_SUCCESS:
-        return {
-          ...state,
-          articles: payload.data,
-          tag: payload.tagOrSlug,
-          loading:false
-          // length: payload.articlesCount
-        };
+      console.log(payload)
+      return {
+        ...state,
+        articles: payload.data,
+        tag: payload.tagOrSlug,
+        loading: false
+        // length: payload.articlesCount
+      };
 
     case actionType.GET_ARTICLE_SLUG_SUCCESS:
       return {
         ...state,
         article: payload.data,
         // tag: payload.tagOrSlug,
-        loading:false
+        loading: false
       };
-    
+
     case actionType.DEL_ARTICLE_BY_SLUG:
       return {
         ...state,
@@ -55,10 +55,11 @@ export default (state = initialState, action) => {
       };
     case actionType.FAV_ARTICLE_SUCCESS:
     case actionType.UNFAV_ARTICLE_SUCCESS:
-      console.log(payload)
+      console.log(payload);
+      console.log(state.articles)
       return {
         ...state,
-        loading:false,
+        loading: false,
         articles: state.articles.map(a =>
           a.slug === payload.slug
             ? {
@@ -73,8 +74,7 @@ export default (state = initialState, action) => {
     case actionType.PROFILE_FAVORITES_PAGE_UNLOADED:
       return {};
 
-  
     default:
-      return state
+      return state;
   }
 };

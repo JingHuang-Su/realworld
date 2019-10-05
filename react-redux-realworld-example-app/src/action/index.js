@@ -34,7 +34,6 @@ export const login = (email, password) => {
 // Post User Info to API (signup)
 // axios.post(https://conduit.productionready.io/api/users/signup)
 
-//TODO: side effect still appear, 10/3 using redux-saga to fix it
 
 export const signup = (username, email, password) => {
   return {
@@ -45,7 +44,12 @@ export const signup = (username, email, password) => {
   };
 };
 
-//TODO: LOGOUT
+
+export const logout = () => {
+  return {
+    type: actionType.LOGOUT
+  }
+}
 
 export const authSuccess = data => {
   return {

@@ -34,7 +34,7 @@ export function* getArticleByTagOrSlugSaga(action) {
   if (action.location === "tag") {
     res = yield axios.get(`${defaultURL}/api/articles?tag=${action.searchTag}`);
     yield put(
-      actionsFunction.getArticleByTagSuccess(action.searchTag , res.data)
+      actionsFunction.getArticleByTagSuccess(action.searchTag , res.data.articles)
     );
   } else {
     res = yield axios.get(`${defaultURL}/api/articles/${action.location}`);

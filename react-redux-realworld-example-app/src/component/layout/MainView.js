@@ -74,12 +74,11 @@ const MainView = ({
             </li>
           )}
         </ul>
-      </div>
-      {tag ? (
-        <MainViewCard articles={articles.articles} length={length} />
-      ) : (
-        <MainViewCard articles={articles} length={length} />
-      )}
+      </div>  
+      {console.log(articles)}
+      
+      <MainViewCard articles={articles} length={length} />
+     
     </div>
   );
 };
