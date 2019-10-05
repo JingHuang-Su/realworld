@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createArticle } from "../../action";
+import {withRouter} from 'react-router-dom'
 
-const ArticleForm = ({ createArticle }) => {
+const ArticleForm = ({ createArticle , history}) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -19,7 +20,7 @@ const ArticleForm = ({ createArticle }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    createArticle(formData);
+    createArticle(formData, history);
   };
 
   return (
@@ -117,4 +118,4 @@ const ArticleForm = ({ createArticle }) => {
 export default connect(
   null,
   { createArticle }
-)(ArticleForm);
+)(withRouter(ArticleForm));

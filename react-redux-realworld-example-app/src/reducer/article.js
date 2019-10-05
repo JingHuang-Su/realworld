@@ -48,7 +48,7 @@ export default (state = initialState, action) => {
         loading: false
       };
 
-    case actionType.DEL_ARTICLE_BY_SLUG:
+    case actionType.DEL_ARTICLE_BY_SLUG_SUCCESS:
       return {
         ...state,
         articles: state.articles.filter(a => a.slug !== payload)

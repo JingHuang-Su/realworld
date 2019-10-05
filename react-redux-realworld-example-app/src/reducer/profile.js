@@ -12,7 +12,6 @@ export default (state = initialState, action) => {
     case actionType.GET_USER_SUCCESS:
     case actionType.GET_USER_BY_ID_SUCCESS:
     case actionType.UPDATE_USER_SUCCESS:
-      console.log(`cool ${payload.profile.following}`);
       return {
         ...state,
         profile: payload,
@@ -23,7 +22,6 @@ export default (state = initialState, action) => {
       return {};
     case actionType.UNFOL_USER_SUCCESS:
     case actionType.FOL_USER_SUCCESS:
-        console.log(`coode ${payload.profile.following}`);
       return {
         ...state,
         following: payload.profile.following,

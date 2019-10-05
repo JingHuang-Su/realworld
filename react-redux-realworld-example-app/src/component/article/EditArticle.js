@@ -1,10 +1,12 @@
 // As File name
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom'
+
 import { updateArticle, getArticleBySlug } from "../../action";
 
 //TODO: need to remeber put the slug name as prop
-const EditArticle = ({ updateArticle, match, article, getArticleBySlug }) => {
+const EditArticle = ({ updateArticle, match, article, getArticleBySlug, history }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -21,7 +23,7 @@ const EditArticle = ({ updateArticle, match, article, getArticleBySlug }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    updateArticle(match.params.id, formData);
+    updateArticle(match.params.id, formData, history);
   };
   
   useEffect(() => {
@@ -132,4 +134,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { updateArticle, getArticleBySlug }
-)(EditArticle);
+)(withRouter(EditArticle));

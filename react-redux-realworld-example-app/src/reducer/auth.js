@@ -10,7 +10,6 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-   
     case actionType.AUTH_SUCCESS:
       return {
         ...state,
@@ -23,14 +22,21 @@ export default (state = initialState, action) => {
     case actionType.REGISTER_PAGE_UNLOADED:
       return {};
 
-    case actionType.LOGOUT: 
+    case actionType.LOGOUT:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: null,
+        isAuth: false,
+        loading: false
+      };
     case actionType.AUTH_ERROR:
       return {
         ...state,
         token: null,
         isAuth: false,
         loading: false
-      }
+      };
     default:
       return state;
   }

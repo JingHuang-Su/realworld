@@ -8,7 +8,14 @@ const ArticleAction = ({ canModify }) => {
   return canModify ? (
     <div className="article-meta">
       <Link to={`/${article.author.username}`}>
-        <img src={article.author.image? article.author.image:"https://static.productionready.io/images/smiley-cyrus.jpg"} alt={article.author.username} />
+        <img
+          src={
+            article.author.image
+              ? article.author.image
+              : "https://static.productionready.io/images/smiley-cyrus.jpg"
+          }
+          alt={article.author.username}
+        />
       </Link>
 
       <div className="info">
@@ -19,7 +26,6 @@ const ArticleAction = ({ canModify }) => {
           {new Date(article.createdAt).toDateString()}
         </span>
       </div>
-
     </div>
   ) : (
     <span></span>

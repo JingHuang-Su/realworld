@@ -3,7 +3,7 @@ import { getTagsSaga } from "./home";
 import { updateUserSaga, getUserSaga, folUserSaga , unFolUserSaga, getUserByIdSaga} from "./profile";
 
 import * as actionType from "../action/type";
-import { takeEvery, all, take } from "redux-saga/effects";
+import { takeEvery, all } from "redux-saga/effects";
 import {
   getArticleByAllOrAuthorSaga,
   getArticleByTagOrSlugSaga,
@@ -15,7 +15,8 @@ import {
   delCommentSaga,
   createCommentSaga,
   getAuthorFavArticleSaga,
-  getArticleByFeedSaga
+  getArticleByFeedSaga,
+  delArticleBySlugSaga
 } from "./article";
 
 export function* watchAuth() {
@@ -45,7 +46,8 @@ export function* watchArticle() {
     takeEvery(actionType.DEL_COMMENT, delCommentSaga),
     takeEvery(actionType.CREATE_COMMENT, createCommentSaga),
     takeEvery(actionType.GET_AUTHOR_FAV_ARTICLE, getAuthorFavArticleSaga),
-    takeEvery(actionType.GET_ARTICLE_BY_FEED, getArticleByFeedSaga)
+    takeEvery(actionType.GET_ARTICLE_BY_FEED, getArticleByFeedSaga),
+    takeEvery(actionType.DEL_ARTICLE_BY_SLUG, delArticleBySlugSaga)
   ]);
 }
 

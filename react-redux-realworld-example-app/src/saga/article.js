@@ -70,8 +70,9 @@ export function* createArticleSaga(action) {
     setHeaderConfig
   );
 
-  console.log(res.data);
   yield put(actionsFunction.createArticleSuccess(res.data));
+
+  action.history.push('/')
 }
 
 export function* updateArticleSaga(action) {
@@ -84,6 +85,8 @@ export function* updateArticleSaga(action) {
     setHeaderConfig
   );
   yield put(actionsFunction.updateArticleSuccess(res.data));
+
+  action.history.push('/')
 }
 
 export function* getCommentSaga(action) {
@@ -127,4 +130,11 @@ export function* getArticleByFeedSaga(){
 
   yield put(actionsFunction.getArticleByFeedSuccess(res.data))
 
+}
+
+
+export function* delArticleBySlugSaga(action) {
+  yield axios.delete(`${defaultURL}/api/articles/${action.slug}`);
+  yield put(actionsFunction.delArticleBySlugSuccess(action.slug));
+  action.history.push('/')
 }

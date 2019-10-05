@@ -22,7 +22,6 @@ export const loadUser = () => {
 // Post User Info to API (login)
 // axios.post(https://conduit.productionready.io/api/users/login)
 
-//TODO: side effect appear, 10/3 using redux-saga to fix it
 export const login = (email, password) => {
   return {
     type: actionType.LOGIN,
@@ -72,7 +71,6 @@ export const authError = () => {
 
 // GET Tag from API
 // axios.get(https://conduit.productionready.io/api/tags)
-//TODO: side effect still appear, 10/3 using redux-saga to fix it
 
 export const getTags = () => {
   return {
@@ -149,15 +147,21 @@ export const getArticleByTagSuccess = (tagOrSlug, data) => {
 
 // DEL article by slug
 // axios.del(https://conduit.productionready.io/api/articles/${slug})
-export const delArticleBySlug = slug => async dispatch => {
-  const res = await axios.delete(`${defaultURL}/api/articles/${slug}`);
-
-  dispatch({
-    type: actionType.DEL_ARTICLE_BY_SLUG,
-    payload: slug
-  });
+export const delArticleBySlug = (slug , history)=> {
+  return {
+    type:actionType.DEL_ARTICLE_BY_SLUG,
+    slug:slug,
+    history:history
+  }
 };
 
+
+export const delArticleBySlugSuccess = slug => {
+  return {
+    type: actionType.DEL_ARTICLE_BY_SLUG_SUCCESS,
+    payload:slug
+  }
+}
 
 // get user favoriate article by their name
 
@@ -237,11 +241,12 @@ export const unFavArticleSuccess = (slug, data) => {
 // PUT article (update)
 // axios.post(https://conduit.productionready.io/api/articles/${articles.slug})
 
-export const updateArticle = (slug, formData) => {
+export const updateArticle = (slug, formData, history) => {
   return {
     type: actionType.UPDATE_ARTICLE,
     formData,
-    slug
+    slug,
+    history
   };
 };
 
@@ -255,10 +260,11 @@ export const updateArticleSuccess = data => {
 // CREATE article
 // axios.post(https://conduit.productionready.io/api/articles)
 
-export const createArticle = formData => {
+export const createArticle = (formData, history) => {
   return {
     type: actionType.CREATE_ARTICLE,
-    formData: formData
+    formData: formData,
+    history:history
   };
 };
 

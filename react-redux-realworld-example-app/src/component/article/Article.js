@@ -1,31 +1,11 @@
-// NOTICE (index.js + Article.js)
-// shows the "content" of article
-// the following below is the "content" data
-// {
-//   "article": {
-//     "slug": "how-to-train-your-dragon",
-//     "title": "How to train your dragon",
-//     "description": "Ever wonder how?",
-//     "body": "It takes a Jacobian",
-//     "tagList": ["dragons", "training"],
-//     "createdAt": "2016-02-18T03:22:56.637Z",
-//     "updatedAt": "2016-02-18T03:48:35.824Z",
-//     "favorited": false,
-//     "favoritesCount": 0, //
-//     "author": {
-//       "username": "jake",
-//       "bio": "I work at statefarm",
-//       "image": "https://i.stack.imgur.com/xHWG8.jpg",
-//       "following": false
-//     }
-//   }
-// }
+
 
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link,withRouter } from "react-router-dom";
+import {delArticleBySlug} from '../../action'
+import { connect } from 'react-redux'
 // receive article as props
-const Article = ({ article, canModify }) => {
+const Article = ({ article, canModify,delArticleBySlug, history }) => {
   console.log(article)
   return (
     <div className="article-meta">
@@ -50,8 +30,8 @@ const Article = ({ article, canModify }) => {
             <i className="ion-edit"></i> Edit Article
           </Link>
 
-          <button className="btn btn-outline-danger btn-sm" >
-            <i className="ion-trash-a"></i> Delete Article
+          <button className="btn btn-outline-danger btn-sm" onClick = {()=>delArticleBySlug(article.slug, history)} >
+            <i className="ion-trash-a" ></i> Delete Article
           </button>
         </span>
       ) : (
@@ -61,4 +41,4 @@ const Article = ({ article, canModify }) => {
   );
 };
 
-export default Article;
+export default connect(null, {delArticleBySlug})(withRouter(Article));
