@@ -10,7 +10,6 @@ export default (state = initialState, action) => {
   switch (type) {
     
     case actionType.GET_TAG_SUCCESS:
-        console.log(payload)
       return {
         ...state,
         tag: payload.tags

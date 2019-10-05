@@ -19,7 +19,6 @@ export function* loginSaga(action) {
 
   yield localStorage.setItem("token", res.data.user.token);
   yield put(actionsFunction.authSuccess(res.data));
-  //TODO: logout function have not write yet
   yield localStorage.token ? setAuthToken(localStorage.token) : put(actionsFunction.logout)
 }
 

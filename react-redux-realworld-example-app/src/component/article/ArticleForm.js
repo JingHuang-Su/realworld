@@ -17,7 +17,7 @@ const ArticleForm = ({ createArticle , history}) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  console.log(formData)
   const onSubmit = e => {
     e.preventDefault();
     createArticle(formData, history);
@@ -65,39 +65,24 @@ const ArticleForm = ({ createArticle , history}) => {
                   ></textarea>
                 </fieldset>
 
-                //TODO: need to add tag
 
-                {/* <fieldset className="form-group">
+                <fieldset className="form-group">
                   <input
                     className="form-control"
                     type="text"
-                    placeholder="Enter tags"
+                    placeholder="cool, cool"
                     name="tagInput"
                     value={tagInput}
                     onChange={e => onChange(e)}
-                      onKeyUp={this.watchForEnter}
+                    
                   />
 
-                  <div className="tag-list">
-                    {(this.props.tagList || []).map(tag => {
-                      return (
-                        <span className="tag-default tag-pill" key={tag}>
-                          <i
-                            className="ion-close-round"
-                            // onClick={this.removeTagHandler(tag)}
-                          ></i>
-                          {tag}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </fieldset> */}
+                </fieldset>
 
                 <button
                   className="btn btn-lg pull-xs-right btn-primary"
                   type="button"
                   name="submit"
-                  // disabled={this.props.inProgress}
                   onClick={onSubmit}
                 >
                   Publish Article

@@ -1,2 +1,0 @@
-// load your fav post
-

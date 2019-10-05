@@ -1,4 +1,3 @@
-// https://github.com/gothinkster/realworld/tree/master/api
 
 import React, {useEffect} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -46,11 +45,3 @@ const App  = () =>  {
 export default (App);
 
 
-//                 <Route exact path="/" component={Home}/>
-// <Route path="/register" component={Register} />
-//                 <Route path="/editor/:slug" component={Editor} />
-//                 <Route path="/editor" component={Editor} />
-//                 <Route path="/article/:id" component={Article} />
-//                 <Route path="/settings" component={Settings} />
-//                 <Route path="/@:username/favorites" component={ProfileFavorites} />
-//                 <Route path="/@:username" component={Profile} />

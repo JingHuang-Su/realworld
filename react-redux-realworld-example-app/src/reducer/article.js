@@ -31,20 +31,17 @@ export default (state = initialState, action) => {
         loading: false
       };
     case actionType.GET_ARTICLE_TAG_SUCCESS:
-      console.log(payload)
       return {
         ...state,
         articles: payload.data,
         tag: payload.tagOrSlug,
         loading: false
-        // length: payload.articlesCount
       };
 
     case actionType.GET_ARTICLE_SLUG_SUCCESS:
       return {
         ...state,
         article: payload.data,
-        // tag: payload.tagOrSlug,
         loading: false
       };
 
@@ -55,8 +52,6 @@ export default (state = initialState, action) => {
       };
     case actionType.FAV_ARTICLE_SUCCESS:
     case actionType.UNFAV_ARTICLE_SUCCESS:
-      console.log(payload);
-      console.log(state.articles)
       return {
         ...state,
         loading: false,

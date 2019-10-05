@@ -1,9 +1,10 @@
 // As File name
 import React, {useState, useEffect} from "react";
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux';
 import {updateUser, getUser, loadUser} from '../../action'
 
-const EditProfile = ({updateUser, getUser, auth}) => {
+const EditProfile = ({updateUser, getUser, auth, history}) => {
   const [formData, setFormData] = useState({
     image: "",
     username: "",
@@ -20,7 +21,7 @@ const EditProfile = ({updateUser, getUser, auth}) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    updateUser(formData)
+    updateUser(formData, history)
 
   };
 
@@ -114,4 +115,4 @@ const mapStateToProps = state => ({
     auth:state.auth
 })
 
-export default connect(mapStateToProps, {updateUser, getUser})(EditProfile);
+export default connect(mapStateToProps, {updateUser, getUser})(withRouter(EditProfile));

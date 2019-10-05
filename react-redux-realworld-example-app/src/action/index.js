@@ -33,7 +33,6 @@ export const login = (email, password) => {
 // Post User Info to API (signup)
 // axios.post(https://conduit.productionready.io/api/users/signup)
 
-
 export const signup = (username, email, password) => {
   return {
     type: actionType.REGISTER,
@@ -43,12 +42,11 @@ export const signup = (username, email, password) => {
   };
 };
 
-
 export const logout = () => {
   return {
     type: actionType.LOGOUT
-  }
-}
+  };
+};
 
 export const authSuccess = data => {
   return {
@@ -85,8 +83,6 @@ export const getTagsSuccess = data => {
   };
 };
 
-//TODO: ADD TAG
-//TODO: REMOVE TAG
 
 ////////////
 //Articles//
@@ -125,7 +121,7 @@ export const getArticleByTag = tag => {
   return {
     type: actionType.GET_ARTICLE_TAG,
     location: "tag",
-    searchTag:tag
+    searchTag: tag
   };
 };
 
@@ -141,58 +137,54 @@ export const getArticleByTagSuccess = (tagOrSlug, data) => {
     type: actionType.GET_ARTICLE_TAG_SUCCESS,
     payload: { tagOrSlug, data }
   };
-}
-
-
+};
 
 // DEL article by slug
 // axios.del(https://conduit.productionready.io/api/articles/${slug})
-export const delArticleBySlug = (slug , history)=> {
+export const delArticleBySlug = (slug, history) => {
   return {
-    type:actionType.DEL_ARTICLE_BY_SLUG,
-    slug:slug,
-    history:history
-  }
+    type: actionType.DEL_ARTICLE_BY_SLUG,
+    slug: slug,
+    history: history
+  };
 };
-
 
 export const delArticleBySlugSuccess = slug => {
   return {
     type: actionType.DEL_ARTICLE_BY_SLUG_SUCCESS,
-    payload:slug
-  }
-}
+    payload: slug
+  };
+};
 
 // get user favoriate article by their name
 
 export const getAuthorFavArticle = username => {
   return {
     type: actionType.GET_AUTHOR_FAV_ARTICLE,
-    username : username
-  }
-}
+    username: username
+  };
+};
 
-export const getAuthorFavArticleSuccess =data => {
+export const getAuthorFavArticleSuccess = data => {
   return {
-    type:actionType.GET_AUTHOR_FAV_ARTICLE_SUCCESS,
-    payload:data
-  }
-}
-
+    type: actionType.GET_AUTHOR_FAV_ARTICLE_SUCCESS,
+    payload: data
+  };
+};
 
 //get article by feed
-export const getArticleByFeed =() => {
+export const getArticleByFeed = () => {
   return {
     type: actionType.GET_ARTICLE_BY_FEED
-  }
-}
+  };
+};
 
-export const getArticleByFeedSuccess = (data) =>{
+export const getArticleByFeedSuccess = data => {
   return {
-    type:actionType.GET_ARTICLE_BY_FEED_SUCCESS,
-    payload:data
-  }
-}
+    type: actionType.GET_ARTICLE_BY_FEED_SUCCESS,
+    payload: data
+  };
+};
 
 // POST like
 // axios.post(https://conduit.productionready.io/api/articles/${slug}/favorite)
@@ -210,9 +202,7 @@ export const favArticleSuccess = (slug, data) => {
     payload: { slug, data: data }
   };
 };
-// GET ?? confused
 
-//TODO: get article by feed still need to develop
 
 // GET articles by slug
 // axios.get(https://conduit.productionready.io/api/articles/${slug})
@@ -264,7 +254,7 @@ export const createArticle = (formData, history) => {
   return {
     type: actionType.CREATE_ARTICLE,
     formData: formData,
-    history:history
+    history: history
   };
 };
 
@@ -283,65 +273,63 @@ export const createArticleSuccess = data => {
 
 //return single comment that is your post
 export const createComment = (slug, formData) => {
-  
   return {
     type: actionType.CREATE_COMMENT,
-    formData:formData,
+    formData: formData,
     slug: slug
-  }
+  };
 };
 
-
-export const createCommentSuccess = (data) => {
+export const createCommentSuccess = data => {
   return {
     type: actionType.CREATE_COMMENT_SUCCESS,
-    payload:data.comment
-  }
-}
+    payload: data.comment
+  };
+};
 //DEL Comment
 //axios.del(https://conduit.productionready.io/api/articles/${slug}/comments/${commentId})
 
-export const delComment = (slug, commentId)  => {
-  
-
+export const delComment = (slug, commentId) => {
   return {
     type: actionType.DEL_COMMENT,
-    slug:slug,
+    slug: slug,
     commentId: commentId
-  }
+  };
 };
 
-export const delCommentSuccess = (commentId) => {
+export const delCommentSuccess = commentId => {
   return {
     type: actionType.DEL_COMMENT_SUCCESS,
-    payload:commentId
-  }
-}
+    payload: commentId
+  };
+};
 
 //GET Comment
 //axios.get(https://conduit.productionready.io/api/articles/${slug}/comments/)
-export const getComment = slug=> {
+export const getComment = slug => {
   return {
-    type:actionType.GET_COMMENTS,
-    slug:slug
-  }
+    type: actionType.GET_COMMENTS,
+    slug: slug
+  };
 };
-
 
 export const getCommentSuccess = data => {
   return {
-    type:actionType.GET_COMMENTS_SUCCESS,
-    payload:data
-  }
-}
+    type: actionType.GET_COMMENTS_SUCCESS,
+    payload: data
+  };
+};
 /////////////
 ///Profile///
 /////////////
 
-export const updateUser = formData => {
+//update user profile
+
+export const updateUser = (formData, history) => {
   return {
     type: actionType.UPDATE_USER,
-    formData: formData
+    formData: formData,
+    history: history
   };
 };
 
@@ -351,7 +339,6 @@ export const updateUserSuccess = data => {
     payload: data
   };
 };
-
 
 // GET user by name
 
@@ -368,38 +355,38 @@ export const getUserSuccess = data => {
   };
 };
 
+//get user by Id
 
-export const getUserById = (username) => {
+export const getUserById = username => {
   return {
-    type:actionType.GET_USER_BY_ID,
-    username : username
-  }
-}
+    type: actionType.GET_USER_BY_ID,
+    username: username
+  };
+};
 
-export const getUserByIdSuccess = (data) => {
+export const getUserByIdSuccess = data => {
   return {
     type: actionType.GET_USER_BY_ID_SUCCESS,
-    payload:data
-  }
-}
+    payload: data
+  };
+};
+
 // POST followed user
 // axios.post(https://conduit.productionready.io/profiles/${username}/follow)
 
 export const followUser = username => {
-
   return {
-    type:actionType.FOL_USER,
+    type: actionType.FOL_USER,
     username: username
-  }
+  };
 };
 
 export const followUserSuccess = data => {
   return {
     type: actionType.FOL_USER_SUCCESS,
-    payload:data
-  }
-}
-
+    payload: data
+  };
+};
 
 // DEL user who you followed
 // axios.post(https://conduit.productionready.io/api/profile/${username}/follow) )
@@ -408,15 +395,14 @@ export const followUserSuccess = data => {
 
 export const unfollowUser = username => {
   return {
-    type:actionType.UNFOL_USER,
-    username:username
-  }
+    type: actionType.UNFOL_USER,
+    username: username
+  };
 };
-
 
 export const unfollowUserSuccess = data => {
   return {
     type: actionType.UNFOL_USER_SUCCESS,
     payload: data
-  }
-}
+  };
+};

@@ -33,7 +33,7 @@ const EditArticle = ({ updateArticle, match, article, getArticleBySlug, history 
       title: article.loading||!article.article.article.title ? "" : article.article.article.title,
       description:  article.loading||!article.article.article.description ? "" : article.article.article.description,
       body:  article.loading||!article.article.article.body ? "" : article.article.article.body,
-      // tagInput: loading||!article.tagInput ? "" : article.tagInput,
+      tagInput: article.loading||!article.article.article.tagList ? "" : article.article.article.tagList
     })
     
 
@@ -81,9 +81,8 @@ const EditArticle = ({ updateArticle, match, article, getArticleBySlug, history 
                   ></textarea>
                 </fieldset>
 
-                //TODO: need to add tag
 
-                {/* <fieldset className="form-group">
+                <fieldset className="form-group">
                   <input
                     className="form-control"
                     type="text"
@@ -91,29 +90,14 @@ const EditArticle = ({ updateArticle, match, article, getArticleBySlug, history 
                     name="tagInput"
                     value={tagInput}
                     onChange={e => onChange(e)}
-                      onKeyUp={this.watchForEnter}
                   />
 
-                  <div className="tag-list">
-                    {(this.props.tagList || []).map(tag => {
-                      return (
-                        <span className="tag-default tag-pill" key={tag}>
-                          <i
-                            className="ion-close-round"
-                            // onClick={this.removeTagHandler(tag)}
-                          ></i>
-                          {tag}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </fieldset> */}
+                </fieldset>
 
                 <button
                   className="btn btn-lg pull-xs-right btn-primary"
                   type="button"
                   name="submit"
-                  // disabled={this.props.inProgress}
                   onClick={onSubmit}
                 >
                   Publish Article

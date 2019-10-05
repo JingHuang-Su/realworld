@@ -11,13 +11,20 @@ export default (state = initialState, action) => {
   switch (type) {
     case actionType.GET_USER_SUCCESS:
     case actionType.GET_USER_BY_ID_SUCCESS:
-    case actionType.UPDATE_USER_SUCCESS:
+    
       return {
         ...state,
         profile: payload,
         following: payload.profile.following,
         loading: false
       };
+
+      case actionType.UPDATE_USER_SUCCESS:
+          return {
+            ...state,
+            profile: payload,
+            loading: false
+          };
     case actionType.PROFILE_PAGE_UNLOADED:
       return {};
     case actionType.UNFOL_USER_SUCCESS:

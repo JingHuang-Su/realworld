@@ -39,8 +39,8 @@ const MainArticle = ({ article, match, auth, getArticleBySlug }) => {
             ></div>
 
             <ul className="tag-list">
-              {article.article.tagList &&
-                article.article.tagList.map(tag => {
+              {article.article.article.tagList &&
+                article.article.article.tagList.map(tag => {
                   return (
                     <li className="tag-default tag-pill tag-outline" key={tag}>
                       {tag}
@@ -84,8 +84,8 @@ const MainArticle = ({ article, match, auth, getArticleBySlug }) => {
             ></div>
 
             <ul className="tag-list">
-              {article.article.tagList &&
-                article.article.tagList.map(tag => {
+              {article.article.article.tagList &&
+                article.article.article.tagList.map(tag => {
                   return (
                     <li className="tag-default tag-pill tag-outline" key={tag}>
                       {tag}
