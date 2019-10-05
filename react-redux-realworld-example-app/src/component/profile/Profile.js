@@ -37,9 +37,9 @@ const Profile = ({
   let classes = "btn btn-sm action-btn";
    
 
-  return (profile.loading || auth.loading || !profile.profile.profile||article.loading) ? (
+  return (profile.loading || auth.loading ||article.loading) ? (
     <div>loading</div>
-  ) : (
+  ) : auth.isAuth ? (
     <div className="profile-page">
       <div className="user-info">
         <div className="container">
@@ -71,6 +71,52 @@ const Profile = ({
                   {profile.following ? "Unfollow" : "Follow"} {profile.profile.profile.username}
                 </button>
               )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12 col-md-10 offset-md-1">
+            <div className="articles-toggle">
+                  <ul className="nav nav-pills outline-active">
+                <li className="nav-item">
+                  <button className="nav-link" onClick = {() => getArticleByUserName(profile.profile.profile.username)}>
+                    My Articles
+                  </button>
+                </li>
+
+                <li className="nav-item">
+                  <button className="nav-link" onClick = {() => getAuthorFavArticle(profile.profile.profile.username)}>
+                    Favorited Articles
+                  </button>
+                </li>
+              </ul>
+            </div> 
+
+            <MainviewCard
+                articles={article.articles}
+                />
+          </div>
+        </div>
+      </div>
+    </div>
+  ):(
+    <div className="profile-page">
+      <div className="user-info">
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12 col-md-10 offset-md-1">
+            
+              <img
+                src={profile.profile.profile.image ? profile.profile.profile.image:"https://static.productionready.io/images/smiley-cyrus.jpg"}
+                className="user-img"
+                alt={profile.profile.profile.username}
+              />
+              <h4>{profile.profile.profile.username}</h4>
+              <p>{profile.profile.profile.bio}</p>
+              
             </div>
           </div>
         </div>

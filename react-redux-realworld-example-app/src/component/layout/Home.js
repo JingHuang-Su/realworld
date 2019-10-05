@@ -1,18 +1,12 @@
 import React, { useEffect } from "react";
-import { getTags, getArticle } from "../../action";
 import Banner from './Banner';
 import MainView from './MainView'
 import Tags from './Tag'
 import {connect} from 'react-redux'
 
 
-const Home = ({getTags, home:{tag}, auth:{isAuth}}) => {
-  useEffect(() => {
-    const fetchData = async () => {
-      getTags();
-    };
-    fetchData();
-  }, [getTags]);
+const Home = ({ auth:{isAuth}}) => {
+  
   return (
 
     <div className="home-page">
@@ -28,8 +22,7 @@ const Home = ({getTags, home:{tag}, auth:{isAuth}}) => {
 
               <p>Popular Tags</p>
 
-              <Tags
-                tags={tag} />
+              <Tags />
 
             </div>
           </div>
@@ -42,9 +35,7 @@ const Home = ({getTags, home:{tag}, auth:{isAuth}}) => {
 
 
 const mapStateToProps = state => ({
-    auth: state.auth,
-    home: state.home,
-    article: state.article
+    auth: state.auth
 })
 
-export default connect(mapStateToProps, {getTags})(Home);
+export default connect(mapStateToProps, null)(Home);

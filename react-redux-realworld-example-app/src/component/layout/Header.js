@@ -57,6 +57,12 @@ const LoggedInView = ({isAuth, user})=> {
         </li>
 
         <li className="nav-item">
+          <Link to="/edit" className="nav-link">
+            Logout&rarr;
+          </Link>
+        </li>
+
+        <li className="nav-item">
           <Link
             to={`/${user.username}`}
             className="nav-link">

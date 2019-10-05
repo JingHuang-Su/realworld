@@ -28,16 +28,26 @@ export default (state = initialState, action) => {
         ...state,
         articles: payload.articles,
         length: payload.articlesCount,
+        tag:null,
         loading:false
       };
-    case actionType.GET_ARTICLE_TAG_OR_SLUG_SUCCESS:
+    case actionType.GET_ARTICLE_TAG_SUCCESS:
         return {
           ...state,
-          article: payload.data,
+          articles: payload.data,
           tag: payload.tagOrSlug,
           loading:false
           // length: payload.articlesCount
         };
+
+    case actionType.GET_ARTICLE_SLUG_SUCCESS:
+      return {
+        ...state,
+        article: payload.data,
+        // tag: payload.tagOrSlug,
+        loading:false
+      };
+    
     case actionType.DEL_ARTICLE_BY_SLUG:
       return {
         ...state,

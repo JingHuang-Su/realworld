@@ -32,13 +32,17 @@ export function* getArticleByTagOrSlugSaga(action) {
   console.log(action)
   let res;
   if (action.location === "tag") {
-    res = yield axios.get(`${defaultURL}/api/articles?tag=${action.location}`);
+    res = yield axios.get(`${defaultURL}/api/articles?tag=${action.searchTag}`);
+    yield put(
+      actionsFunction.getArticleByTagSuccess(action.searchTag , res.data)
+    );
   } else {
     res = yield axios.get(`${defaultURL}/api/articles/${action.location}`);
+    yield put(
+      actionsFunction.getArticleBySlugSuccess(action.location , res.data)
+    );
   }
-  yield put(
-    actionsFunction.getArticleByTagOrSlugSuccess(action.location, res.data)
-  );
+  
 }
 
 export function* favArticleSaga(action) {

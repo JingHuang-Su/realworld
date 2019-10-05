@@ -10,29 +10,67 @@ import marked from "marked";
 //get article by slug
 //get comment by slug
 
-const MainArticle = ({
-  article,
-  match,
-  auth,
-  getArticleBySlug,
-}) => {
+const MainArticle = ({ article, match, auth, getArticleBySlug }) => {
   const slug = match.params.id;
   // console.log(article.loading)
 
   useEffect(() => {
-     getArticleBySlug(slug);
-    
+    getArticleBySlug(slug);
   }, [getArticleBySlug, slug]);
 
-
-  return article.loading || !article.article || auth.loading? (
+  return article.loading || !article.article || auth.loading ? (
     <div>loading</div>
+  ) : !auth.isAuth ? (
+    <div className="article-page">
+      <div className="banner">
+        <div className="container">
+          <h1>{article.article.article.title}</h1>
+          <Article article={article.article.article} canModify={false} />
+        </div>
+      </div>
+
+      <div className="container page">
+        <div className="row article-content">
+          <div className="col-xs-12">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked(article.article.article.body, { sanitize: true })
+              }}
+            ></div>
+
+            <ul className="tag-list">
+              {article.article.tagList &&
+                article.article.tagList.map(tag => {
+                  return (
+                    <li className="tag-default tag-pill tag-outline" key={tag}>
+                      {tag}
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        </div>
+
+        <hr />
+
+        <div className="article-actions"></div>
+
+        <div className="row">
+          <Comment slug={slug} auth={auth} />
+        </div>
+      </div>
+    </div>
   ) : (
     <div className="article-page">
       <div className="banner">
         <div className="container">
           <h1>{article.article.article.title}</h1>
-          <Article article={article.article.article} canModify={auth.user.username === article.article.article.author.username  } />
+          <Article
+            article={article.article.article}
+            canModify={
+              auth.user.username === article.article.article.author.username
+            }
+          />
         </div>
       </div>
 

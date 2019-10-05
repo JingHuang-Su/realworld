@@ -8,11 +8,9 @@ const EditProfile = ({updateUser, getUser, auth}) => {
     image: "",
     username: "",
     bio: "",
-    email: "",
-    // password: ""
+    email: ""
   });
 
-  console.log(auth)
 
   const { image, username, bio, email } = formData;
 
@@ -35,7 +33,6 @@ const EditProfile = ({updateUser, getUser, auth}) => {
       username: auth.loading||!auth.user.username ? "" : auth.user.username,
       bio: auth.loading||!auth.user.bio ? "" : auth.user.bio,
       email: auth.loading||!auth.user.email ? "" : auth.user.email,
-      // password: loading||!profile.user.password ? "" : profile.user.password
     });
   }, [auth.loading, getUser]);
 
@@ -92,16 +89,7 @@ const EditProfile = ({updateUser, getUser, auth}) => {
                   />
                 </fieldset>
 
-                {/* <fieldset className="form-group">
-                  <input
-                    className="form-control form-control-lg"
-                    type="password"
-                    placeholder="New Password"
-                    name = "password"
-                    value={password}
-                    onChange={e => onChange(e)}
-                  />
-                </fieldset> */}
+                
 
                 <button
                   className="btn btn-lg btn-primary pull-xs-right"
@@ -113,13 +101,7 @@ const EditProfile = ({updateUser, getUser, auth}) => {
               </fieldset>
             </form>
 
-            <button
-              className="btn btn-outline-danger"
-              name="submit"
-            //   onClick={this.props.onClickLogout}
-            >
-              Or click here to logout.
-            </button>
+            
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ const CommentForm = ({slug,auth, createComment}) => {
       </div>
       <div className="card-footer">
         <img
-          src={auth.user.image}
+          src={auth.user.image?auth.user.image : "https://static.productionready.io/images/smiley-cyrus.jpg"}
           className="comment-author-img"
           alt={auth.user.username}
         />

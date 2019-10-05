@@ -122,16 +122,26 @@ export const getArticleByUserName = username => {
 export const getArticleByTag = tag => {
   return {
     type: actionType.GET_ARTICLE_TAG,
-    location: tag
+    location: "tag",
+    searchTag:tag
   };
 };
 
-export const getArticleByTagOrSlugSuccess = (tagOrSlug, data) => {
+export const getArticleBySlugSuccess = (tagOrSlug, data) => {
   return {
-    type: actionType.GET_ARTICLE_TAG_OR_SLUG_SUCCESS,
+    type: actionType.GET_ARTICLE_SLUG_SUCCESS,
     payload: { tagOrSlug, data }
   };
 };
+
+export const getArticleByTagSuccess = (tagOrSlug, data) => {
+  return {
+    type: actionType.GET_ARTICLE_TAG_SUCCESS,
+    payload: { tagOrSlug, data }
+  };
+}
+
+
 
 // DEL article by slug
 // axios.del(https://conduit.productionready.io/api/articles/${slug})

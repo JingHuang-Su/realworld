@@ -8,7 +8,7 @@ const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
 
 
-const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
+const MainviewCardPreview = ({article, favArticle, unFavArticle, auth})=> {
   const favoriteButtonClass = article.favorited ?
     FAVORITED_CLASS :
     NOT_FAVORITED_CLASS;
@@ -22,7 +22,7 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
     }
   };
 
-  return (
+  return auth.loading? (<div>loading</div>):(
     <div className="article-preview">
       <div className="article-meta">
         <Link to={`/${article.author.username}`}>
@@ -37,12 +37,16 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
             {new Date(article.createdAt).toDateString()}
           </span>
         </div>
-
-        <div className="pull-xs-right">
+        {auth.isAuth? (<div className="pull-xs-right">
           <button className={favoriteButtonClass} onClick = {() => onClick(article.slug)}>
             <i className="ion-heart"></i> {article.favoritesCount}
           </button>
-        </div>
+        </div>):(<div className="pull-xs-right">
+          <button className={favoriteButtonClass} >
+            <i className="ion-heart"></i> {article.favoritesCount}
+          </button>
+        </div>)}
+        
       </div>
 
       <Link to={`/article/${article.slug}`} className="preview-link">
@@ -65,6 +69,10 @@ const MainviewCardPreview = ({article, favArticle, unFavArticle})=> {
   );
 }
 
+const mapStateToProps = state => ({
+  auth: state.auth
+})
 
 
-export default connect(null, {unFavArticle, favArticle})(MainviewCardPreview);
+
+export default connect(mapStateToProps, {unFavArticle, favArticle})(MainviewCardPreview);
