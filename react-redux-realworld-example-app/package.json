@@ -17,7 +17,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "redux-saga": "^1.1.1",
-    "superagent": "^2.3.0",
+    "superagent": "^5.0.2",
     "superagent-promise": "^1.1.0"
   },
   "scripts": {
